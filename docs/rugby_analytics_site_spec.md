@@ -155,7 +155,7 @@ jobs:
       - uses: actions/setup-python@v4
         with: { python-version: "3.11" }
       - run: pip install -r requirements.txt
-      - run: python data/pipeline.py
+      - run: python scripts/pipeline.py
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}

@@ -12,7 +12,7 @@ from utils.cache import (
 )
 from utils.config import LEAGUES
 from utils.charts import form_badge_html
-from data.scrapers.sofascore import fetch_live_scores
+from scripts.scrapers.sofascore import fetch_live_scores
 from footer import add_betting_oracle_footer
 from themes import apply_theme, THEME_NAMES
 
@@ -75,7 +75,7 @@ def home_page() -> None:
 
     if matches_df.empty:
         st.warning(
-            "No match data loaded yet. Run `python data/pipeline.py` to populate the database.",
+            "No match data loaded yet. Run `python scripts/pipeline.py` to populate the database.",
             icon="⚠️",
         )
         st.info("Once the pipeline has run, this dashboard will show live fixtures, odds, form, and try scorer stats.")

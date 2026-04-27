@@ -27,7 +27,7 @@ tss_df     = load_team_season_stats()
 odds_df    = load_odds()
 
 if matches_df.empty:
-    st.warning("No data loaded. Run `python data/pipeline.py` first.", icon="⚠️")
+    st.warning("No data loaded. Run `python scripts/pipeline.py` first.", icon="⚠️")
     st.stop()
 
 # Filter

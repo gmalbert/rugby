@@ -30,7 +30,7 @@ elo_df     = load_elo_ratings()
 odds_df    = load_odds()
 
 if matches_df.empty:
-    st.warning("No data loaded. Run `python data/pipeline.py` first.", icon="⚠️")
+    st.warning("No data loaded. Run `python scripts/pipeline.py` first.", icon="⚠️")
     st.stop()
 
 _tmap = dict(zip(teams_df["id"], teams_df["name"])) if not teams_df.empty else {}
