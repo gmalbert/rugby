@@ -9,11 +9,13 @@ import pandas as pd
 from utils.cache import (
     load_teams, load_matches, load_player_stats,
     load_elo_ratings, load_odds,
+    fit_dc_cached, fit_try_scorer_cached,
 )
-from utils.config import LEAGUES
+from utils.config import LEAGUES, ODDS_API_KEY
 from utils.odds import american_to_implied, expected_value, format_american
 from models.elo import current_ratings, win_probability
 from models.value_finder import find_match_edges, find_try_scorer_edges
+from models.kelly import kelly_table
 
 st.title("⚡ Betting Edge")
 st.caption("Model-identified value vs DraftKings lines — informational only.")
@@ -31,6 +33,13 @@ def tname(tid: str) -> str:
 
 # ── Sidebar controls ───────────────────────────────────────────────────────
 min_edge = st.sidebar.slider("Min Edge %", min_value=1, max_value=20, value=5) / 100
+bankroll    = st.sidebar.number_input("Bankroll ($)", min_value=10, max_value=100_000, value=1_000, step=50)
+kelly_frac  = st.sidebar.select_slider(
+    "Kelly fraction",
+    options=[0.25, 0.5, 1.0],
+    value=0.5,
+    format_func=lambda x: {0.25: "¼ Kelly", 0.5: "½ Kelly", 1.0: "Full Kelly"}[x],
+)
 league_filter = st.sidebar.multiselect(
     "Leagues",
     options=list(LEAGUES.keys()),
@@ -60,7 +69,13 @@ st.subheader("💎 Value Bets — Match Winner")
 st.caption(f"Showing edges ≥ {min_edge:.0%} between Elo model probability and DK implied probability.")
 
 if upcoming.empty or odds_df.empty or elo_df.empty:
-    st.info("Value bets will appear here once match data, odds, and Elo ratings are available.")
+    if odds_df.empty and ODDS_API_KEY:
+        st.info(
+            "No odds data available. The Odds API only covers Six Nations (when active). "
+            "Value bets will appear during the Six Nations tournament."
+        )
+    else:
+        st.info("Value bets will appear here once match data, odds, and Elo ratings are available.")
 else:
     edges_df = find_match_edges(upcoming, odds_df, elo_df, min_edge=min_edge)
 
@@ -86,11 +101,22 @@ else:
         })
         disp["Signal"] = disp["Signal"].map({"back": "✅ Back", "fade": "🔴 Fade"})
 
+        # Kelly stake sizing
+        kelly_df = kelly_table(edges_df, bankroll=bankroll, fraction=kelly_frac)
+        disp["Kelly Stake"] = kelly_df["kelly_stake"].apply(lambda x: f"${x:.2f}" if x > 0 else "—")
+
         st.dataframe(
             disp.style.apply(highlight_edge, axis=1),
             hide_index=True,
             width='stretch'
         )
+
+        # Download
+        import io
+        buf = io.StringIO()
+        disp.to_csv(buf, index=False)
+        st.download_button("Download Value Bets CSV", buf.getvalue(),
+                           file_name="value_bets.csv", mime="text/csv")
 
 st.divider()
 
@@ -99,14 +125,12 @@ st.subheader("🏃 Try Scorer Value")
 st.caption("Model probabilities for anytime try scorers across upcoming fixtures.")
 
 if not player_df.empty and not upcoming.empty:
-    from models.try_scorer import build_features, train, top_try_scorers_for_match
+    from models.try_scorer import top_try_scorers_for_match
     final = matches_df[matches_df["status"] == "final"]
 
-    try_model = None
-    if len(final) >= 20:
-        feat_df = build_features(player_df, final)
-        if not feat_df.empty:
-            try_model = train(feat_df)
+    try_model = fit_try_scorer_cached(
+        len(player_df) + len(final), player_df, matches_df
+    ) if len(final) >= 20 else None
 
     scorer_rows = []
     for _, m in upcoming.iterrows():
@@ -148,9 +172,9 @@ st.divider()
 # ── Totals Analysis ────────────────────────────────────────────────────────
 st.subheader("➕ Totals Analysis (Over/Under)")
 if not upcoming.empty and not odds_df.empty:
-    from models.dixon_coles import fit, predict
+    from models.dixon_coles import predict
     final = matches_df[matches_df["status"] == "final"]
-    dc_model = fit(final) if len(final) >= 15 else None
+    dc_model = fit_dc_cached(len(final), matches_df) if len(final) >= 15 else None
 
     lo = odds_df.sort_values("scraped_at").groupby("match_id").last().reset_index()
     totals_rows = []

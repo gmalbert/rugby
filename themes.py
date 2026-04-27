@@ -30,7 +30,7 @@ _NIGHT = dict(
     main_bg="#0e1117",   sidebar_bg="#0d1f0a",  sidebar_text="#e8f5d0",
     text="#f0f8e8",      accent="#7dc918",
     df_header_bg="#1a3a0d", df_header_text="#e8f5d0",
-    card_bg="#1a2e10",   input_bg="#1a2e10",    input_text="#e8f5d0",
+    card_bg="#1a2e10",   input_bg="#253d18",    input_text="#e8f5d0",
     btn_bg="#5a9e10",    btn_text="#ffffff",
     cell_bg="#141f0e",   cell_text="#e8f5d0",
     border="#3a6a10",    alert_bg="#1a3010",
@@ -215,15 +215,50 @@ section.main > div {{
 }}
 
 /* ── Dropdown menus / portals (global + sidebar) ────────────────────────── */
+/* Portals render outside .stApp so we need stand-alone selectors            */
 [data-baseweb="menu"],
 [data-baseweb="popover"] ul,
-[role="listbox"],
+[role="listbox"] {{
+    background-color: {input_bg} !important;
+    border-color: {border} !important;
+}}
 [data-baseweb="menu"] li,
 [data-baseweb="option"] {{
     background-color: {input_bg} !important;
     color: {input_text} !important;
 }}
-[data-baseweb="option"]:hover {{ background-color: {border} !important; }}
+/* Force ALL child text in every option to be readable */
+[data-baseweb="menu"] li *,
+[data-baseweb="option"] *,
+[role="listbox"] li,
+[role="listbox"] li *,
+[role="option"],
+[role="option"] * {{
+    color: {input_text} !important;
+    background-color: transparent !important;
+}}
+/* Hover state */
+[data-baseweb="option"]:hover,
+[role="option"]:hover {{
+    background-color: {border} !important;
+}}
+[data-baseweb="option"]:hover *,
+[role="option"]:hover * {{
+    color: {input_text} !important;
+}}
+/* Selected / focused / highlighted state */
+[data-baseweb="option"][aria-selected="true"],
+[data-baseweb="option"][data-highlighted],
+[role="option"][aria-selected="true"] {{
+    background-color: {accent} !important;
+}}
+[data-baseweb="option"][aria-selected="true"] *,
+[data-baseweb="option"][data-highlighted] *,
+[role="option"][aria-selected="true"] * {{
+    color: #ffffff !important;
+    background-color: transparent !important;
+}}
+/* Sidebar variants (same rules scoped to sidebar) */
 [data-testid="stSidebar"] [data-baseweb="menu"],
 [data-testid="stSidebar"] [role="listbox"],
 [data-testid="stSidebar"] [data-baseweb="popover"] ul {{
@@ -241,6 +276,13 @@ section.main > div {{
 }}
 [data-testid="stSidebar"] [data-baseweb="option"]:hover {{
     background-color: {border} !important;
+}}
+[data-testid="stSidebar"] [data-baseweb="option"][aria-selected="true"] {{
+    background-color: {accent} !important;
+}}
+[data-testid="stSidebar"] [data-baseweb="option"][aria-selected="true"] * {{
+    color: #ffffff !important;
+    background-color: transparent !important;
 }}
 
 /* ── Metric values ──────────────────────────────────────────────────────── */

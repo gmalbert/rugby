@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run pipeline
+      - name: Run pipeline (scrape + precompute models)
         run: python data/pipeline.py
         env:
           ODDS_API_KEY:        ${{ secrets.ODDS_API_KEY }}
@@ -35,6 +35,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name  "github-actions[bot]"
-          git add data/csv/ data/parquet/
+          git add data_files/csv/ data_files/parquet/
           git diff --staged --quiet || git commit -m "chore: nightly data refresh $(date -u +'%Y-%m-%d')"
           git push

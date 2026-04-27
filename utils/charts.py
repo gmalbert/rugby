@@ -180,3 +180,76 @@ def histogram(values: list[float], title: str = "", xaxis_title: str = "") -> go
         **_chart_theme(),
     )
     return fig
+
+
+def radar_chart_compare(
+    categories: list[str],
+    values_a: list[float],
+    values_b: list[float],
+    label_a: str = "Player A",
+    label_b: str = "Player B",
+    title: str = "",
+) -> go.Figure:
+    """Overlay radar chart for comparing two players / teams."""
+    cats = categories + [categories[0]]
+    v_a = values_a + [values_a[0]]
+    v_b = values_b + [values_b[0]]
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatterpolar(
+            r=v_a, theta=cats, fill="toself",
+            name=label_a, line_color=PRIMARY, opacity=0.75,
+        )
+    )
+    fig.add_trace(
+        go.Scatterpolar(
+            r=v_b, theta=cats, fill="toself",
+            name=label_b, line_color=SECONDARY, opacity=0.75,
+        )
+    )
+    max_val = max(max(values_a), max(values_b), 1)
+    ct = _chart_theme()
+    fig.update_layout(
+        polar=dict(radialaxis=dict(visible=True, range=[0, max_val * 1.1])),
+        showlegend=True,
+        title=title,
+        height=400,
+        margin=dict(l=30, r=30, t=50, b=30),
+        **ct,
+    )
+    return fig
+
+
+def line_movement_chart(
+    history: pd.DataFrame,
+    home_name: str = "Home",
+    away_name: str = "Away",
+) -> go.Figure:
+    """Plot home_ml and away_ml over time for odds line-movement tracking."""
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(
+            x=history["scraped_at"],
+            y=history["home_ml"],
+            name=f"{home_name} ML",
+            mode="lines+markers",
+            line=dict(color="#3b82f6", width=2),
+        )
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=history["scraped_at"],
+            y=history["away_ml"],
+            name=f"{away_name} ML",
+            mode="lines+markers",
+            line=dict(color="#ef4444", width=2),
+        )
+    )
+    fig.update_layout(
+        yaxis_title="American Odds",
+        hovermode="x unified",
+        height=360,
+        margin=dict(l=0, r=0, t=20, b=0),
+        **_chart_theme(),
+    )
+    return fig

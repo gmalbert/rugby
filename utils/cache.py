@@ -93,3 +93,76 @@ def load_elo_ratings() -> pd.DataFrame:
     if "date" in df.columns:
         df["date"] = pd.to_datetime(df["date"])
     return df
+
+
+# ── Precomputed model outputs (written by pipeline) ────────────────────────
+
+_PRED_COLS = [
+    "match_id", "home_team_id", "away_team_id", "league_id",
+    "elo_p_home", "elo_p_draw", "elo_p_away",
+    "dc_p_home", "dc_p_draw", "dc_p_away",
+    "dc_exp_home", "dc_exp_away",
+]
+
+_BT_COLS = ["team_id", "league_id", "bt_strength"]
+
+_DC_PARAM_COLS = ["team_id", "team", "attack", "defence"]
+
+
+@st.cache_data(ttl=3600)
+def load_precomputed_predictions() -> pd.DataFrame:
+    """Upcoming fixture win probabilities from Elo + DC, precomputed by pipeline."""
+    p = PARQUET_DIR / "precomputed_predictions.parquet"
+    if not p.exists():
+        return pd.DataFrame(columns=_PRED_COLS)
+    return pd.read_parquet(p)
+
+
+@st.cache_data(ttl=3600)
+def load_bradley_terry_ratings() -> pd.DataFrame:
+    """Bradley-Terry team strength ratings, precomputed by pipeline."""
+    p = PARQUET_DIR / "bradley_terry_ratings.parquet"
+    if not p.exists():
+        return pd.DataFrame(columns=_BT_COLS)
+    return pd.read_parquet(p)
+
+
+@st.cache_data(ttl=3600)
+def load_dc_params() -> pd.DataFrame:
+    """Dixon-Coles attack/defence parameters, precomputed by pipeline."""
+    p = PARQUET_DIR / "dc_params.parquet"
+    if not p.exists():
+        return pd.DataFrame(columns=_DC_PARAM_COLS)
+    return pd.read_parquet(p)
+
+
+@st.cache_data(ttl=3600, show_spinner="Fitting Dixon-Coles model…")
+def fit_dc_cached(matches_hash: int, matches_df: pd.DataFrame) -> dict | None:
+    """Cached Dixon-Coles fitting.  Pass hash of matches_df as first arg for cache keying."""
+    import models.dixon_coles as dc
+    final = matches_df[matches_df["status"] == "final"]
+    if len(final) < 15:
+        return None
+    return dc.fit(final)
+
+
+@st.cache_data(ttl=3600, show_spinner="Fitting Bradley-Terry model…")
+def fit_bt_cached(matches_hash: int, matches_df: pd.DataFrame) -> dict | None:
+    """Cached Bradley-Terry fitting."""
+    import models.bradley_terry as bt
+    return bt.fit(matches_df)
+
+
+@st.cache_data(ttl=3600, show_spinner="Training try-scorer model…")
+def fit_try_scorer_cached(
+    data_hash: int, player_df: pd.DataFrame, matches_df: pd.DataFrame
+) -> object | None:
+    """Cached try-scorer model training."""
+    from models.try_scorer import build_features, train
+    final = matches_df[matches_df["status"] == "final"]
+    if len(final) < 20 or player_df.empty:
+        return None
+    features = build_features(player_df, final)
+    if features.empty:
+        return None
+    return train(features)

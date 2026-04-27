@@ -161,6 +161,7 @@ def _fetch_odds() -> pd.DataFrame:
 
     records  = []
     scraped  = datetime.now(timezone.utc).isoformat()
+    skipped_inactive = []
 
     for league_id, sport_key in ODDS_SPORT_MAP.items():
         try:
@@ -176,6 +177,7 @@ def _fetch_odds() -> pd.DataFrame:
                 timeout=15,
             )
             if r.status_code == 404:
+                skipped_inactive.append(league_id)
                 continue
             r.raise_for_status()
         except Exception as e:
@@ -208,6 +210,13 @@ def _fetch_odds() -> pd.DataFrame:
                     "total_under_odds": tot.get("Under", {}).get("price"),
                 })
 
+    if skipped_inactive:
+        logger.info(
+            "Odds API: %d sport(s) inactive/off-season (no odds available): %s",
+            len(skipped_inactive), ", ".join(skipped_inactive),
+        )
+    logger.info("Odds scraped: %d records across %d leagues", len(records),
+                len(set(r.get('league_id','') for r in records)))
     return pd.DataFrame(records)
 
 
@@ -273,7 +282,78 @@ def main() -> None:
             odds_merged = odds_new
         _save_csv(odds_merged, odds_path)
 
+    # Precompute models for fast Streamlit cold-start
+    if not matches_merged.empty:
+        _precompute_models(matches_merged, teams_merged)
+
     logger.info("=== ScrumBet Pipeline Complete ===")
+
+
+def _precompute_models(matches: pd.DataFrame, teams: pd.DataFrame) -> None:
+    """Fit models on all final data and save parquet artefacts for Streamlit to load instantly."""
+    final = matches[matches["status"] == "final"].copy()
+    logger.info("Precomputing models on %d final matches…", len(final))
+
+    # ── Bradley-Terry ratings ──────────────────────────────────────────────
+    if len(final) >= 5:
+        try:
+            import models.bradley_terry as bt
+            model = bt.fit(final)
+            if model:
+                bt_df = bt.ratings_df(model, teams)
+                bt_df.to_parquet(PARQUET_DIR / "bradley_terry_ratings.parquet", index=False)
+                logger.info("Bradley-Terry saved (%d teams)", len(bt_df))
+        except Exception as exc:
+            logger.warning("Bradley-Terry fit failed: %s", exc)
+
+    # ── Dixon-Coles parameters ─────────────────────────────────────────────
+    if len(final) >= 15:
+        try:
+            import models.dixon_coles as dc
+            model = dc.fit(final)
+            if model:
+                params_df = dc.params_df(model, teams)
+                params_df.to_parquet(PARQUET_DIR / "dc_params.parquet", index=False)
+                logger.info("Dixon-Coles params saved (%d teams)", len(params_df))
+        except Exception as exc:
+            logger.warning("Dixon-Coles fit failed: %s", exc)
+
+    # ── Precomputed win probabilities for upcoming matches ─────────────────
+    from datetime import timezone
+    upcoming = matches[
+        (matches["status"] == "scheduled") &
+        (matches["kickoff_utc"] >= pd.Timestamp.now(tz=timezone.utc))
+    ].copy()
+
+    if upcoming.empty or final.empty:
+        return
+
+    try:
+        from models.elo import build_elo_history, current_ratings, win_probability as elo_wp
+        elo_history = build_elo_history(final)
+        ratings     = current_ratings(elo_history).to_dict()
+
+        rows = []
+        for _, row in upcoming.iterrows():
+            h, a  = str(row["home_team_id"]), str(row["away_team_id"])
+            ph, pd_draw, pa = elo_wp(ratings.get(h, 1500), ratings.get(a, 1500))
+            rows.append({
+                "match_id":       str(row["id"]),
+                "league_id":      row.get("league_id", ""),
+                "home_team_id":   h,
+                "away_team_id":   a,
+                "kickoff_utc":    row.get("kickoff_utc"),
+                "elo_home_prob":  round(ph, 4),
+                "elo_draw_prob":  round(pd_draw, 4),
+                "elo_away_prob":  round(pa, 4),
+            })
+
+        if rows:
+            pred_df = pd.DataFrame(rows)
+            pred_df.to_parquet(PARQUET_DIR / "precomputed_predictions.parquet", index=False)
+            logger.info("Precomputed predictions saved (%d fixtures)", len(pred_df))
+    except Exception as exc:
+        logger.warning("Win-prob precompute failed: %s", exc)
 
 
 if __name__ == "__main__":
