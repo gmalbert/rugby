@@ -171,17 +171,27 @@ with col_pb:
     if prop_player and not ps.empty:
         prop_rows = ps[ps["player_name"] == prop_player]
         if not prop_rows.empty:
-            # Simple model: historical scoring rate as probability
-            games_with_try = (
-                prop_rows.groupby("match_id")["tries"].sum() >= 1
-            ).sum()
+            # Historical scoring rate with Laplace smoothing:
+            # add 1 scoring game and 4 non-scoring games as a prior so thin
+            # samples regress toward ~20% rather than snapping to 0% or 100%.
+            PRIOR_TRIES    = 1
+            PRIOR_NO_TRIES = 4
+            games_with_try = int(
+                (prop_rows.groupby("match_id")["tries"].sum() >= 1).sum()
+            )
             total_prop_games = prop_rows["match_id"].nunique()
-            model_prob = games_with_try / max(total_prop_games, 1)
+            model_prob = (games_with_try + PRIOR_TRIES) / (
+                total_prop_games + PRIOR_TRIES + PRIOR_NO_TRIES
+            )
             dk_implied = american_to_implied(dk_odds_input)
             edge       = model_prob - dk_implied
             ev_val     = expected_value(model_prob, dk_odds_input)
 
             st.metric("Model Probability", f"{model_prob:.1%}")
+            st.caption(
+                f"Based on {games_with_try}/{total_prop_games} games with a try "
+                f"(smoothed prior: {PRIOR_TRIES}/{PRIOR_TRIES + PRIOR_NO_TRIES})"
+            )
             st.metric("DK Implied Probability", f"{dk_implied:.1%}")
             st.metric("Edge", f"{edge:+.1%}", delta_color="normal")
             st.metric("Expected Value (per $1)", f"${ev_val:.2f}")

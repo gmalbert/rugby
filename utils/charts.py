@@ -29,7 +29,6 @@ def _chart_theme() -> dict:
         paper_bgcolor=t["main_bg"],
         plot_bgcolor=t["main_bg"],
         font=dict(color=fc),
-        title_font_color=fc,
         legend=dict(font=dict(color=fc)),
         xaxis=dict(
             gridcolor=gc, zerolinecolor=gc,

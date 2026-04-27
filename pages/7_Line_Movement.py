@@ -8,8 +8,8 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timezone, timedelta
 
-from utils.cache import load_teams, load_matches, load_odds
-from utils.config import LEAGUES, ODDS_API_KEY
+from utils.cache import load_teams, load_matches, load_odds, load_live_rugby_odds
+from utils.config import LEAGUES, ODDS_API_KEY, ODDS_API_IO_KEY
 from utils.charts import line_movement_chart
 from footer import add_betting_oracle_footer
 
@@ -22,18 +22,19 @@ matches_df = load_matches()
 odds_df    = load_odds()
 
 if odds_df.empty or matches_df.empty:
-    if not ODDS_API_KEY:
+    if not ODDS_API_KEY and not ODDS_API_IO_KEY:
         st.info(
-            "Set `ODDS_API_KEY` in `.env` and run the pipeline to populate odds."
+            "Set `ODDS_API_IO_KEY` in `.env` and run the pipeline to populate odds snapshots. "
+            "odds-api.io covers **Super Rugby**, **NRL**, and **international rugby** "
+            "(DraftKings / BetMGM BR). Club rugby (Premiership, Top 14, URC) requires a paid plan."
         )
-    else:
+    elif odds_df.empty:
         st.info(
-            "No odds data available yet. The Odds API has very limited Rugby Union "
-            "coverage — only **Six Nations** is supported, and only while the "
-            "tournament is active. Odds for Premiership, Top 14, Super Rugby, URC, "
-            "and Champions Cup are not available through this API.\n\n"
-            "Line movement charts will populate automatically once Six Nations "
-            "fixtures are live and the nightly pipeline runs."
+            "No odds snapshots yet. Run `python scripts/pipeline.py` to fetch the first snapshot. "
+            "\n\n**Coverage with odds-api.io (free tier):**\n"
+            "- DraftKings: Super Rugby Union ML, NRL Premiership ML\n"
+            "- BetMGM BR: International rugby — ML, Spread, Totals\n\n"
+            "Line movement charts populate once the pipeline has run at least twice."
         )
     st.stop()
 

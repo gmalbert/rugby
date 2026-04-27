@@ -14,7 +14,7 @@ from utils.config import LEAGUES
 from utils.charts import form_badge_html
 from scripts.scrapers.sofascore import fetch_live_scores
 from footer import add_betting_oracle_footer
-from themes import apply_theme, THEME_NAMES
+from themes import apply_theme
 
 # ── Called ONCE here — sub-pages must NOT call set_page_config ───────────
 st.set_page_config(
@@ -24,9 +24,35 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Theme — initialise session state before any widget renders ────────────
-if "theme_name" not in st.session_state:
-    st.session_state["theme_name"] = "Night (Dark)"
+# ── Auto theme: Emerald Isle 06:00–20:00, Night (Dark) 20:00–06:00 ─────────
+# JS injects ?hour=N via window.parent (st.iframe renders in a real iframe).
+# Guard: only redirects when the value is absent or stale — no infinite loop.
+st.iframe(
+    """
+    <script>
+    const h = new Date().getHours();
+    const url = new URL(window.parent.location.href);
+    const existing = url.searchParams.get('hour');
+    if (existing === null || parseInt(existing, 10) !== h) {
+        url.searchParams.set('hour', h);
+        window.parent.location.replace(url.toString());
+    }
+    </script>
+    """,
+    height=10,
+)
+
+_hour_param = st.query_params.get("hour", None)
+if _hour_param is not None:
+    try:
+        _browser_hour = int(_hour_param)
+    except ValueError:
+        _browser_hour = 12
+else:
+    _browser_hour = 12
+
+_theme_name = "Emerald Isle" if 6 <= _browser_hour < 20 else "Night (Dark)"
+st.session_state["theme_name"] = _theme_name
 
 # ── Shared sidebar items (visible on every page) ───────────────────────────
 logo_path = "data_files/logo.png"
@@ -35,13 +61,7 @@ try:
 except Exception:
     st.sidebar.title("🏉 ScrumBet")
 
-st.sidebar.selectbox(
-    "🎨 Theme",
-    options=THEME_NAMES,
-    index=THEME_NAMES.index(st.session_state["theme_name"]),
-    key="theme_name",
-)
-apply_theme(st.session_state["theme_name"])
+apply_theme(_theme_name)
 
 st.sidebar.divider()
 if st.sidebar.button("🔄 Refresh cache"):
