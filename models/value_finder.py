@@ -1,8 +1,14 @@
 """
-Value finder: surfaces model edges vs DraftKings lines.
+Value finder: surfaces model edges vs bookmaker lines.
 
-Uses Elo model for match-winner markets and the try-scorer model
-for player prop markets.
+Uses Elo model for match-winner (ML) markets and Dixon-Coles for
+spread and totals markets.
+
+Odds sources:
+  - odds_snapshots.csv  (pipeline-written, matched to ESPN match IDs)
+  - load_live_rugby_odds() DataFrame (real-time from odds-api.io)
+
+Live odds are matched to upcoming matches by fuzzy team name + date.
 """
 
 import pandas as pd
@@ -151,3 +157,250 @@ def form_score(results: list, weights: list = None) -> float:
     if not w:
         return 0.0
     return round((sum(v * wt for v, wt in zip(vals, w)) / sum(w)) * 100, 1)
+
+
+# ── Live-odds helpers (odds-api.io) ───────────────────────────────────────
+
+def _match_live_odds_row(
+    home_tid: str,
+    away_tid: str,
+    kickoff_utc,
+    live_odds_df: pd.DataFrame,
+    teams_df: pd.DataFrame,
+) -> "pd.Series | None":
+    """
+    Return the live-odds row that matches the given ESPN fixture.
+    Matching uses normalised team name + date proximity (±1 day).
+    Returns None if no match found.
+    """
+    if live_odds_df.empty:
+        return None
+
+    from utils.odds_api_io import names_match
+
+    tmap = dict(zip(teams_df["id"].astype(str), teams_df["name"])) if not teams_df.empty else {}
+    home_name = tmap.get(str(home_tid), str(home_tid))
+    away_name = tmap.get(str(away_tid), str(away_tid))
+    ko = pd.Timestamp(kickoff_utc)
+    if pd.isna(ko):
+        return None
+
+    for _, row in live_odds_df.iterrows():
+        row_ko = pd.Timestamp(row["kickoff_utc"])
+        if pd.isna(row_ko):
+            continue
+        if abs((ko.normalize() - row_ko.normalize()).days) > 1:
+            continue
+        if (names_match(home_name, str(row["home_name"])) and
+                names_match(away_name, str(row["away_name"]))):
+            return row
+    return None
+
+
+def find_live_match_edges(
+    upcoming: pd.DataFrame,
+    live_odds_df: pd.DataFrame,
+    elo_df: pd.DataFrame,
+    teams_df: pd.DataFrame,
+    min_edge: float = 0.05,
+) -> pd.DataFrame:
+    """
+    Compare Elo win-probabilities against live moneyline odds from odds-api.io.
+
+    Unlike find_match_edges() which requires pre-matched CSV odds, this uses
+    the live odds DataFrame returned by load_live_rugby_odds() and does fuzzy
+    team-name matching on the fly.
+
+    Returns rows where |model_prob − implied_prob| >= min_edge.
+    """
+    if upcoming.empty or live_odds_df.empty or elo_df.empty:
+        return pd.DataFrame()
+
+    ratings = current_ratings(elo_df)
+    records = []
+
+    for _, match in upcoming.iterrows():
+        live_row = _match_live_odds_row(
+            match["home_team_id"], match["away_team_id"],
+            match.get("kickoff_utc"), live_odds_df, teams_df,
+        )
+        if live_row is None:
+            continue
+
+        r_h = ratings.get(match["home_team_id"], 1500)
+        r_a = ratings.get(match["away_team_id"], 1500)
+        p_h, p_d, p_a = win_probability(r_h, r_a)
+
+        for side, model_p, ml_col, label in [
+            ("home", p_h, "home_ml", "Home ML"),
+            ("away", p_a, "away_ml", "Away ML"),
+        ]:
+            ml = live_row.get(ml_col)
+            if pd.isna(ml) or ml == 0:
+                continue
+            ml = float(ml)
+            implied = american_to_implied(ml)
+            edge    = model_p - implied
+            ev      = expected_value(model_p, ml)
+
+            if abs(edge) >= min_edge:
+                records.append({
+                    "match_id":       match["id"],
+                    "home_team_id":   match["home_team_id"],
+                    "away_team_id":   match["away_team_id"],
+                    "league_id":      match.get("league_id", ""),
+                    "kickoff_utc":    match.get("kickoff_utc"),
+                    "market":         label,
+                    "bookmaker":      live_row.get("bookmaker", ""),
+                    "dk_odds":        format_american(ml),
+                    "dk_implied_pct": round(implied * 100, 1),
+                    "model_pct":      round(model_p * 100, 1),
+                    "edge_pct":       round(edge * 100, 1),
+                    "ev":             round(ev, 3),
+                    "direction":      "back" if edge > 0 else "fade",
+                    "source":         "odds-api-io",
+                })
+
+    return pd.DataFrame(records)
+
+
+def find_live_spread_edges(
+    upcoming: pd.DataFrame,
+    live_odds_df: pd.DataFrame,
+    dc_model: dict | None,
+    teams_df: pd.DataFrame,
+    min_edge: float = 0.05,
+) -> pd.DataFrame:
+    """
+    Compare Dixon-Coles expected point-difference against the offered spread.
+
+    The spread market from BetMGM BR lists every available handicap; we use
+    the main line (closest to 0). We compare DC's expected margin against the
+    main line and flag edge when |dc_margin − spread_line| > threshold.
+
+    Edge threshold here is in points, not probability — we use a 3-point
+    minimum difference by default (one penalty in rugby).
+    """
+    if upcoming.empty or live_odds_df.empty or dc_model is None:
+        return pd.DataFrame()
+
+    from models.dixon_coles import predict
+
+    records = []
+    for _, match in upcoming.iterrows():
+        live_row = _match_live_odds_row(
+            match["home_team_id"], match["away_team_id"],
+            match.get("kickoff_utc"), live_odds_df, teams_df,
+        )
+        if live_row is None:
+            continue
+
+        sp_line = live_row.get("spread_home")
+        sp_odds = live_row.get("spread_home_odds")
+        if pd.isna(sp_line) or pd.isna(sp_odds):
+            continue
+
+        res = predict(match["home_team_id"], match["away_team_id"], dc_model)
+        if not res:
+            continue
+
+        dc_margin = res["exp_home"] - res["exp_away"]
+        # Positive sp_line means home is favoured by that many points
+        # Edge: if dc_margin > spread_line + threshold, model expects home to cover
+        book_margin = -float(sp_line)  # hdp is from home perspective (negative = home fav)
+        point_edge  = dc_margin - book_margin
+
+        if abs(point_edge) >= 3:
+            sp_odds_f = float(sp_odds)
+            implied   = american_to_implied(sp_odds_f)
+            # Probability of covering based on point edge magnitude
+            # Simple sigmoid: each point of edge ≈ 3% prob shift from 50%
+            cover_prob = min(0.95, max(0.05, 0.5 + point_edge * 0.03))
+            ev = expected_value(cover_prob, sp_odds_f)
+
+            records.append({
+                "match_id":       match["id"],
+                "home_team_id":   match["home_team_id"],
+                "away_team_id":   match["away_team_id"],
+                "league_id":      match.get("league_id", ""),
+                "kickoff_utc":    match.get("kickoff_utc"),
+                "market":         f"Spread {format_american(-int(sp_line))} pts",
+                "bookmaker":      live_row.get("bookmaker", "BetMGM BR"),
+                "dk_odds":        format_american(sp_odds_f),
+                "dk_implied_pct": round(implied * 100, 1),
+                "dc_margin":      round(dc_margin, 1),
+                "book_margin":    round(book_margin, 1),
+                "point_edge":     round(point_edge, 1),
+                "ev":             round(ev, 3),
+                "direction":      "back_home" if point_edge > 0 else "back_away",
+                "source":         "odds-api-io",
+            })
+
+    return pd.DataFrame(records)
+
+
+def find_live_totals_edges(
+    upcoming: pd.DataFrame,
+    live_odds_df: pd.DataFrame,
+    dc_model: dict | None,
+    teams_df: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Compare Dixon-Coles expected total points against the live O/U line.
+
+    Returns all upcoming matches that have live totals odds, with DC expected
+    total and a signal (Over / Under / Push) based on the difference.
+    No minimum edge filter — all available matches are returned for context.
+    """
+    if upcoming.empty or live_odds_df.empty:
+        return pd.DataFrame()
+
+    from models.dixon_coles import predict
+
+    records = []
+    for _, match in upcoming.iterrows():
+        live_row = _match_live_odds_row(
+            match["home_team_id"], match["away_team_id"],
+            match.get("kickoff_utc"), live_odds_df, teams_df,
+        )
+        if live_row is None:
+            continue
+
+        total_line  = live_row.get("total_line")
+        over_odds   = live_row.get("total_over_odds")
+        under_odds  = live_row.get("total_under_odds")
+        if pd.isna(total_line):
+            continue
+
+        exp_total = None
+        if dc_model:
+            res = predict(match["home_team_id"], match["away_team_id"], dc_model)
+            if res:
+                exp_total = round(res["exp_home"] + res["exp_away"], 1)
+
+        signal = "—"
+        if exp_total is not None:
+            diff = exp_total - float(total_line)
+            if diff > 3:
+                signal = "✅ Over"
+            elif diff < -3:
+                signal = "🔴 Under"
+            else:
+                signal = "⚖️ Push"
+
+        records.append({
+            "match_id":       match["id"],
+            "home_team_id":   match["home_team_id"],
+            "away_team_id":   match["away_team_id"],
+            "league_id":      match.get("league_id", ""),
+            "kickoff_utc":    match.get("kickoff_utc"),
+            "bookmaker":      live_row.get("bookmaker", "BetMGM BR"),
+            "total_line":     float(total_line),
+            "over_odds":      format_american(over_odds) if not pd.isna(over_odds) else "—",
+            "under_odds":     format_american(under_odds) if not pd.isna(under_odds) else "—",
+            "dc_exp_total":   exp_total if exp_total is not None else "—",
+            "signal":         signal,
+            "source":         "odds-api-io",
+        })
+
+    return pd.DataFrame(records)

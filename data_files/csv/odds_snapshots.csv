@@ -1,1 +1,15 @@
-match_id,scraped_at,home_ml,away_ml,spread_home,spread_home_odds,total_line,total_over_odds,total_under_odds
+match_id,scraped_at,home_ml,away_ml,spread_home,spread_home_odds,total_line,total_over_odds,total_under_odds,bookmaker,source
+api_io_65892838,2026-04-27 12:42:15.022571+00:00,-333,285,,,,,,DraftKings,odds-api-io
+api_io_65892840,2026-04-27 12:42:15.022571+00:00,-141,125,,,,,,DraftKings,odds-api-io
+api_io_65892842,2026-04-27 12:42:15.022571+00:00,-192,170,,,,,,DraftKings,odds-api-io
+api_io_65892844,2026-04-27 12:42:15.022571+00:00,1200,-3333,,,,,,DraftKings,odds-api-io
+api_io_65892846,2026-04-27 12:42:15.022571+00:00,-156,140,,,,,,DraftKings,odds-api-io
+602927,2026-04-27 12:42:15.022571+00:00,-435,370,,,,,,DraftKings,odds-api-io
+api_io_70795686,2026-04-27 12:42:15.022571+00:00,-588,475,,,,,,DraftKings,odds-api-io
+api_io_65892838,2026-04-27T13:54:34.780843+00:00,-333,285,,,,,,DraftKings,odds-api-io
+api_io_65892840,2026-04-27T13:54:34.780843+00:00,-141,125,,,,,,DraftKings,odds-api-io
+api_io_65892842,2026-04-27T13:54:34.780843+00:00,-192,170,,,,,,DraftKings,odds-api-io
+api_io_65892844,2026-04-27T13:54:34.780843+00:00,1200,-3333,,,,,,DraftKings,odds-api-io
+api_io_65892846,2026-04-27T13:54:34.780843+00:00,-156,140,,,,,,DraftKings,odds-api-io
+602927,2026-04-27T13:54:34.780843+00:00,-435,370,,,,,,DraftKings,odds-api-io
+api_io_70795686,2026-04-27T13:54:34.780843+00:00,-588,475,,,,,,DraftKings,odds-api-io

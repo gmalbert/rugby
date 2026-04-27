@@ -1,7 +1,7 @@
 """
 ScrumBet — Theme system
 
-Night (dark) + 10 complementary day themes derived from the ScrumBet logo
+10 Night (dark) themes + 10 complementary day themes derived from the ScrumBet logo
 palette: dark forest green · bright lime green · white.
 
 Usage
@@ -25,16 +25,110 @@ La Liga learnings applied here:
 
 import streamlit as st
 
-# ── Night (dark) theme ─────────────────────────────────────────────────────
-_NIGHT = dict(
-    main_bg="#0e1117",   sidebar_bg="#0d1f0a",  sidebar_text="#e8f5d0",
-    text="#f0f8e8",      accent="#7dc918",
-    df_header_bg="#1a3a0d", df_header_text="#e8f5d0",
-    card_bg="#1a2e10",   input_bg="#253d18",    input_text="#e8f5d0",
-    btn_bg="#5a9e10",    btn_text="#ffffff",
-    cell_bg="#141f0e",   cell_text="#e8f5d0",
-    border="#3a6a10",    alert_bg="#1a3010",
-)
+# ── 10 Night (dark) themes ────────────────────────────────────────────────
+# Sidebars use non-green, lighter colours so the logo reads clearly.
+_NIGHT_THEMES: dict[str, dict] = {
+
+    "Night (Dark)": dict(                       # refreshed – charcoal navy sidebar
+        main_bg="#0e1117",   sidebar_bg="#1a2840",  sidebar_text="#d8eaf8",
+        text="#f0f8e8",      accent="#7dc918",
+        df_header_bg="#1a3a0d", df_header_text="#e8f5d0",
+        card_bg="#1a2e10",   input_bg="#253d18",    input_text="#e8f5d0",
+        btn_bg="#5a9e10",    btn_text="#ffffff",
+        cell_bg="#141f0e",   cell_text="#e8f5d0",
+        border="#3a6a10",    alert_bg="#1a3010",
+    ),
+
+    "Midnight": dict(                           # deep navy blue
+        main_bg="#0a0f1e",   sidebar_bg="#0f1d3a",  sidebar_text="#c0d0e8",
+        text="#d0e0f8",      accent="#4da6ff",
+        df_header_bg="#162040", df_header_text="#c0d0e8",
+        card_bg="#141e36",   input_bg="#1a2848",    input_text="#c0d0e8",
+        btn_bg="#1a5fa0",    btn_text="#ffffff",
+        cell_bg="#0d1428",   cell_text="#c0d0e8",
+        border="#2a4a7a",    alert_bg="#162040",
+    ),
+
+    "Charcoal": dict(                           # neutral dark gray
+        main_bg="#111111",   sidebar_bg="#202020",  sidebar_text="#dddddd",
+        text="#e0e0e0",      accent="#7dc918",
+        df_header_bg="#282828", df_header_text="#dddddd",
+        card_bg="#1c1c1c",   input_bg="#282828",    input_text="#dddddd",
+        btn_bg="#5a9e10",    btn_text="#ffffff",
+        cell_bg="#161616",   cell_text="#e0e0e0",
+        border="#383838",    alert_bg="#242424",
+    ),
+
+    "Deep Space": dict(                         # dark indigo / purple
+        main_bg="#0d0b1a",   sidebar_bg="#1a1535",  sidebar_text="#d0c8f0",
+        text="#d8d0f8",      accent="#a78bfa",
+        df_header_bg="#221e40", df_header_text="#d0c8f0",
+        card_bg="#181530",   input_bg="#221e40",    input_text="#d0c8f0",
+        btn_bg="#7c3aed",    btn_text="#ffffff",
+        cell_bg="#100d20",   cell_text="#d8d0f8",
+        border="#4a3888",    alert_bg="#1e1840",
+    ),
+
+    "Storm": dict(                              # dark blue-gray
+        main_bg="#0f1419",   sidebar_bg="#1a2535",  sidebar_text="#c8d8e8",
+        text="#d0e0ec",      accent="#38bdf8",
+        df_header_bg="#1e2d3e", df_header_text="#c8d8e8",
+        card_bg="#162030",   input_bg="#1e2d3e",    input_text="#c8d8e8",
+        btn_bg="#0284c7",    btn_text="#ffffff",
+        cell_bg="#0d1520",   cell_text="#d0e0ec",
+        border="#2a4560",    alert_bg="#1e2d3e",
+    ),
+
+    "Forge": dict(                              # dark warm, amber / gold accent
+        main_bg="#0f0d0a",   sidebar_bg="#2a2018",  sidebar_text="#e8d8b0",
+        text="#f0e0c0",      accent="#f59e0b",
+        df_header_bg="#352a1e", df_header_text="#e8d8b0",
+        card_bg="#1e1a14",   input_bg="#2a2018",    input_text="#e8d8b0",
+        btn_bg="#b45309",    btn_text="#ffffff",
+        cell_bg="#141008",   cell_text="#f0e0c0",
+        border="#5a4020",    alert_bg="#352a1e",
+    ),
+
+    "Carbon": dict(                             # pure charcoal, teal accent
+        main_bg="#0a0a0a",   sidebar_bg="#181818",  sidebar_text="#d0e8e8",
+        text="#d8d8d8",      accent="#22d3ee",
+        df_header_bg="#202020", df_header_text="#d0e8e8",
+        card_bg="#161616",   input_bg="#202020",    input_text="#d0e8e8",
+        btn_bg="#0891b2",    btn_text="#ffffff",
+        cell_bg="#101010",   cell_text="#d8d8d8",
+        border="#303030",    alert_bg="#1e1e1e",
+    ),
+
+    "Eclipse": dict(                            # dark purple / violet
+        main_bg="#0d0a14",   sidebar_bg="#1e1530",  sidebar_text="#d8c8f0",
+        text="#e8d8f8",      accent="#c084fc",
+        df_header_bg="#281e3e", df_header_text="#d8c8f0",
+        card_bg="#1a1228",   input_bg="#281e3e",    input_text="#d8c8f0",
+        btn_bg="#9333ea",    btn_text="#ffffff",
+        cell_bg="#120f1e",   cell_text="#e8d8f8",
+        border="#4a2878",    alert_bg="#281e3e",
+    ),
+
+    "Cosmos": dict(                             # deep dark navy, electric blue
+        main_bg="#080a10",   sidebar_bg="#151a2e",  sidebar_text="#c0d0e8",
+        text="#d0ddf0",      accent="#60a5fa",
+        df_header_bg="#1e2440", df_header_text="#c0d0e8",
+        card_bg="#121824",   input_bg="#1a2038",    input_text="#c0d0e8",
+        btn_bg="#2563eb",    btn_text="#ffffff",
+        cell_bg="#0c0e18",   cell_text="#d0ddf0",
+        border="#2a3860",    alert_bg="#1a2038",
+    ),
+
+    "Iron": dict(                               # dark steel blue-gray
+        main_bg="#0e1118",   sidebar_bg="#1c2333",  sidebar_text="#ccd6e0",
+        text="#d8e4ec",      accent="#94a3b8",
+        df_header_bg="#232d3e", df_header_text="#ccd6e0",
+        card_bg="#1a2230",   input_bg="#222c3c",    input_text="#ccd6e0",
+        btn_bg="#475569",    btn_text="#ffffff",
+        cell_bg="#101520",   cell_text="#d8e4ec",
+        border="#374558",    alert_bg="#1e2a3a",
+    ),
+}
 
 # ── 10 Day themes ──────────────────────────────────────────────────────────
 # Every theme is complementary to the logo's forest-green / lime / white
@@ -144,7 +238,7 @@ _DAY_THEMES: dict[str, dict] = {
 }
 
 # ── Public exports ─────────────────────────────────────────────────────────
-ALL_THEMES: dict[str, dict] = {"Night (Dark)": _NIGHT, **_DAY_THEMES}
+ALL_THEMES: dict[str, dict] = {**_NIGHT_THEMES, **_DAY_THEMES}
 THEME_NAMES: list[str] = list(ALL_THEMES.keys())
 
 # ── CSS template ───────────────────────────────────────────────────────────
@@ -506,13 +600,13 @@ div[class*="stError"] {{
 
 def apply_theme(theme_name: str = "Night (Dark)") -> None:
     """Inject CSS for the selected theme into the current page."""
-    t = ALL_THEMES.get(theme_name, _NIGHT)
+    t = ALL_THEMES.get(theme_name, _NIGHT_THEMES["Night (Dark)"])
     st.markdown(f"<style>{_CSS.format(**t)}</style>", unsafe_allow_html=True)
 
 
 def plotly_theme(theme_name: str = "Night (Dark)") -> dict:
     """Return Plotly ``update_layout`` kwargs matching the active theme."""
-    t = ALL_THEMES.get(theme_name, _NIGHT)
+    t = ALL_THEMES.get(theme_name, _NIGHT_THEMES["Night (Dark)"])
     fc = t["text"]
     gc = t["border"]
     return dict(

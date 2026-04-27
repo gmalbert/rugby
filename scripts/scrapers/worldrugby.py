@@ -12,9 +12,10 @@ _HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; ScrumBet/1.0)"}
 _BASE = "https://api.wr-rims-prod.pulselive.com/rugby/v3"
 
 # World Rugby competition IDs
+# Note: champions_cup (271937) is excluded — that competition ID returns garbage
+# data (matches from 1871 with null team info). CC fixtures come from ESPN.
 _COMPETITION_IDS: dict[str, str] = {
-    "six_nations":   "180659",
-    "champions_cup": "271937",
+    "six_nations": "180659",
 }
 
 
@@ -60,6 +61,10 @@ def fetch_fixtures(league_id: str) -> pd.DataFrame:
 
         h_slug = home.get("team", {}).get("slug") or str(home.get("team", {}).get("id", ""))
         a_slug = away.get("team", {}).get("slug") or str(away.get("team", {}).get("id", ""))
+
+        # Skip rows where the API returned no team identifiers
+        if not h_slug or not a_slug:
+            continue
 
         records.append({
             "id":           str(match.get("matchId", "")),

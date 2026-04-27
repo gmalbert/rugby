@@ -14,6 +14,7 @@ from utils.cache import (
     fit_dc_cached, fit_try_scorer_cached,
 )
 from utils.config import LEAGUES, OPEN_METEO_GEOCODING_BASE, OPEN_METEO_BASE, WMO_DESCRIPTIONS
+from utils.venues import get_coords
 from utils.charts import probability_bar, scoreline_heatmap, bar_chart
 from utils.odds import american_to_implied, format_american
 import models.dixon_coles as dc
@@ -149,10 +150,22 @@ st.divider()
 
 # ── Head-to-Head ───────────────────────────────────────────────────────────
 st.subheader(f"⚔️ Last 5 Meetings")
+
+def _all_ids_for(tid: str) -> list[str]:
+    """Return all team IDs that share the same name as tid (cross-league / ID-format variants)."""
+    nm = tname(tid)
+    if not teams_df.empty and nm:
+        ids = teams_df[teams_df["name"].str.lower() == nm.lower()]["id"].tolist()
+        return ids if ids else [tid]
+    return [tid]
+
+h_ids = _all_ids_for(home_id)
+a_ids = _all_ids_for(away_id)
+
 h2h = matches_df[
     (
-        ((matches_df["home_team_id"] == home_id) & (matches_df["away_team_id"] == away_id)) |
-        ((matches_df["home_team_id"] == away_id) & (matches_df["away_team_id"] == home_id))
+        (matches_df["home_team_id"].isin(h_ids) & matches_df["away_team_id"].isin(a_ids)) |
+        (matches_df["home_team_id"].isin(a_ids) & matches_df["away_team_id"].isin(h_ids))
     ) & (matches_df["status"] == "final")
 ].sort_values("kickoff_utc", ascending=False).head(5)
 
@@ -175,8 +188,18 @@ st.divider()
 st.subheader("📏 Key Stats Comparison")
 if not final_matches.empty:
     def team_stats(tid: str) -> dict:
-        hm = final_matches[final_matches["home_team_id"] == tid]
-        am = final_matches[final_matches["away_team_id"] == tid]
+        # Resolve all IDs for this team by name to catch cross-league / ID-format mismatches
+        team_nm = tname(tid)
+        if not teams_df.empty and team_nm:
+            all_ids = teams_df[
+                teams_df["name"].str.lower() == team_nm.lower()
+            ]["id"].tolist()
+            if not all_ids:
+                all_ids = [tid]
+        else:
+            all_ids = [tid]
+        hm = final_matches[final_matches["home_team_id"].isin(all_ids)]
+        am = final_matches[final_matches["away_team_id"].isin(all_ids)]
         n  = max(len(hm) + len(am), 1)
         tp = int(hm["home_score"].sum() + am["away_score"].sum())
         tt = int(hm["home_tries"].sum()  + am["away_tries"].sum())
@@ -186,7 +209,7 @@ if not final_matches.empty:
             (am["away_score"] > am["home_score"]).sum()
         )
         if not player_df.empty:
-            tp_rows = player_df[player_df["team_id"] == tid]
+            tp_rows = player_df[player_df["team_id"].isin(all_ids)]
             metres     = int(tp_rows["metres_run"].sum())
             linebreaks = int(tp_rows["linebreaks"].sum())
             tackles    = int(tp_rows["tackles"].sum())
@@ -195,6 +218,7 @@ if not final_matches.empty:
             metres = linebreaks = tackles = missed = 0
 
         return {
+            "_games": len(hm) + len(am),
             "Win %":          round(wins / n * 100, 1),
             "Pts/Game":       round(tp / n, 1),
             "Tries/Game":     round(tt / n, 2),
@@ -207,14 +231,17 @@ if not final_matches.empty:
 
     h_stats = team_stats(home_id)
     a_stats = team_stats(away_id)
-    metrics = list(h_stats.keys())
+    metrics = [k for k in h_stats if not k.startswith("_")]
 
-    comp_df = pd.DataFrame({
-        "Metric": metrics,
-        home_name: [h_stats[m] for m in metrics],
-        away_name: [a_stats[m] for m in metrics],
-    })
-    st.dataframe(comp_df, hide_index=True, width='stretch')
+    if h_stats["_games"] == 0 and a_stats["_games"] == 0:
+        st.info("No historical match data found for these teams. Run the pipeline to fetch more fixtures.")
+    else:
+        comp_df = pd.DataFrame({
+            "Metric": metrics,
+            home_name: [h_stats[m] for m in metrics],
+            away_name: [a_stats[m] for m in metrics],
+        })
+        st.dataframe(comp_df, hide_index=True, width='stretch')
 else:
     st.info("Stats comparison available once historical match data is loaded.")
 
@@ -290,44 +317,79 @@ if venue:
     st.divider()
     st.subheader("🌦️ Venue Weather at Kickoff")
     import requests
-    try:
-        geo = requests.get(
-            f"{OPEN_METEO_GEOCODING_BASE}/search",
-            params={"name": venue, "count": 1, "language": "en", "format": "json"},
-            timeout=5,
-        ).json().get("results", [])
-        if geo:
-            lat, lon = geo[0]["latitude"], geo[0]["longitude"]
+
+    # 1. Static lookup first; geocoding API as fallback for unknown stadia.
+    coords = get_coords(venue)
+    if coords is None:
+        try:
+            geo = requests.get(
+                f"{OPEN_METEO_GEOCODING_BASE}/search",
+                params={"name": venue, "count": 1, "language": "en", "format": "json"},
+                timeout=5,
+            ).json().get("results", [])
+            if geo:
+                coords = (geo[0]["latitude"], geo[0]["longitude"])
+        except Exception:
+            coords = None
+
+    if coords is None:
+        st.caption(f"Could not determine location for venue '{venue}'.")
+    else:
+        lat, lon = coords
+        kickoff_dt = pd.Timestamp(match["kickoff_utc"])
+        if kickoff_dt.tzinfo is None:
+            kickoff_dt = kickoff_dt.tz_localize("UTC")
+        kickoff_date = kickoff_dt.strftime("%Y-%m-%d")
+        kickoff_unix = int(kickoff_dt.timestamp())
+
+        try:
             wr = requests.get(
                 f"{OPEN_METEO_BASE}/forecast",
                 params={
-                    "latitude":  lat,
-                    "longitude": lon,
-                    "current":   "temperature_2m,weather_code,wind_speed_10m,"
-                                 "wind_direction_10m,precipitation,relative_humidity_2m",
+                    "latitude":   lat,
+                    "longitude":  lon,
+                    "hourly":     (
+                        "temperature_2m,weather_code,wind_speed_10m,"
+                        "wind_direction_10m,precipitation,relative_humidity_2m"
+                    ),
                     "wind_speed_unit": "ms",
-                    "forecast_days": 1,
+                    "timeformat":  "unixtime",
+                    "timezone":    "UTC",
+                    "start_date":  kickoff_date,
+                    "end_date":    kickoff_date,
                 },
                 timeout=5,
             )
             if wr.status_code == 200:
-                c = wr.json().get("current", {})
-                temp  = c.get("temperature_2m", "—")
-                desc  = WMO_DESCRIPTIONS.get(c.get("weather_code", -1), "Unknown")
-                wind  = c.get("wind_speed_10m", "—")
-                rain  = c.get("precipitation", 0.0)
-                humid = c.get("relative_humidity_2m", "—")
-                col_w1, col_w2, col_w3, col_w4 = st.columns(4)
-                col_w1.metric("Conditions", desc)
-                col_w2.metric("Temperature", f"{temp}°C")
-                col_w3.metric("Wind", f"{wind} m/s")
-                col_w4.metric("Precipitation", f"{rain} mm")
+                hourly = wr.json().get("hourly", {})
+                times  = hourly.get("time", [])
+                if times:
+                    # Find the hourly slot closest to kickoff
+                    idx = min(range(len(times)), key=lambda i: abs(times[i] - kickoff_unix))
+                    temp  = hourly["temperature_2m"][idx]
+                    code  = int(hourly["weather_code"][idx])
+                    wind  = hourly["wind_speed_10m"][idx]
+                    rain  = hourly["precipitation"][idx]
+                    humid = hourly["relative_humidity_2m"][idx]
+                    desc  = WMO_DESCRIPTIONS.get(code, "Unknown")
+
+                    col_w1, col_w2, col_w3, col_w4, col_w5 = st.columns(5)
+                    col_w1.metric("Conditions",    desc)
+                    col_w2.metric("Temperature",   f"{temp}°C")
+                    col_w3.metric("Wind",          f"{wind} m/s")
+                    col_w4.metric("Precipitation", f"{rain} mm")
+                    col_w5.metric("Humidity",      f"{humid}%")
+                    st.caption(
+                        f"Open-Meteo hourly forecast · "
+                        f"{kickoff_dt.strftime('%d %b %Y %H:%M')} UTC · "
+                        f"{venue} ({lat:.4f}°, {lon:.4f}°)"
+                    )
+                else:
+                    st.caption(f"No forecast data returned for '{venue}'.")
             else:
-                st.caption(f"Weather unavailable for '{venue}'.")
-        else:
-            st.caption(f"Could not geocode venue '{venue}'.")
-    except Exception:
-        st.caption("Weather service unavailable.")
+                st.caption(f"Weather forecast unavailable for '{venue}'.")
+        except Exception:
+            st.caption("Weather service unavailable.")
 
 from footer import add_betting_oracle_footer
 add_betting_oracle_footer()

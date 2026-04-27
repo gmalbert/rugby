@@ -18,7 +18,7 @@ import pandas as pd
 # Allow running as a script from repo root
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from utils.config import CSV_DIR, PARQUET_DIR, LEAGUE_LIST, LEAGUES, ODDS_API_KEY, ODDS_API_BASE, ODDS_SPORT_MAP
+from utils.config import CSV_DIR, PARQUET_DIR, LEAGUE_LIST, LEAGUES, ODDS_API_KEY, ODDS_API_BASE, ODDS_SPORT_MAP, ODDS_API_IO_KEY, ODDS_API_IO_RUGBY_LEAGUES, ODDS_API_IO_BOOKMAKERS
 
 logging.basicConfig(
     level=logging.INFO,
@@ -153,10 +153,11 @@ def _fetch_player_stats(matches: pd.DataFrame) -> pd.DataFrame:
 
 
 def _fetch_odds() -> pd.DataFrame:
+    """Fetch from the-odds-api.com (Six Nations only, when active)."""
     import requests
 
     if not ODDS_API_KEY:
-        logger.warning("ODDS_API_KEY not set — skipping odds fetch")
+        logger.warning("ODDS_API_KEY not set — skipping the-odds-api.com fetch")
         return pd.DataFrame()
 
     records  = []
@@ -181,7 +182,7 @@ def _fetch_odds() -> pd.DataFrame:
                 continue
             r.raise_for_status()
         except Exception as e:
-            logger.warning("Odds API %s → %s", league_id, e)
+            logger.warning("the-odds-api.com %s → %s", league_id, e)
             continue
 
         for event in r.json():
@@ -208,15 +209,191 @@ def _fetch_odds() -> pd.DataFrame:
                     "total_line":       tot.get("Over", {}).get("point"),
                     "total_over_odds":  tot.get("Over", {}).get("price"),
                     "total_under_odds": tot.get("Under", {}).get("price"),
+                    "bookmaker":        "DraftKings",
+                    "source":           "the-odds-api",
                 })
 
     if skipped_inactive:
         logger.info(
-            "Odds API: %d sport(s) inactive/off-season (no odds available): %s",
+            "the-odds-api.com: %d sport(s) inactive/off-season: %s",
             len(skipped_inactive), ", ".join(skipped_inactive),
         )
-    logger.info("Odds scraped: %d records across %d leagues", len(records),
-                len(set(r.get('league_id','') for r in records)))
+    logger.info("the-odds-api.com scraped: %d records", len(records))
+    return pd.DataFrame(records)
+
+
+def _fetch_odds_api_io(
+    matches: pd.DataFrame,
+    teams: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Fetch odds from odds-api.io for upcoming rugby matches.
+
+    Matches odds-api.io events to our ESPN match IDs by normalised team name
+    + date proximity (±1 day), then fetches DraftKings and BetMGM BR odds.
+
+    Markets stored per row (American odds):
+      home_ml / away_ml       — from DraftKings (or BetMGM BR as fallback)
+      spread_home / spread_home_odds — from BetMGM BR, main handicap line
+      total_line / total_over_odds / total_under_odds — from BetMGM BR
+
+    Coverage confirmed (April 2026):
+      - DraftKings: Super Rugby Union ML, NRL Premiership ML
+      - BetMGM BR:  International rugby (U20 Rugby Championship etc.) —
+                    ML, Spread, Totals, HT/FT, European Handicap
+      - Neither bookmaker covers: Premiership Rugby, Top 14, URC,
+        Champions Cup, or Six Nations (on the free plan)
+    """
+    import urllib.error
+    from utils.odds_api_io import (
+        get_events, get_odds,
+        decimal_to_american, extract_market,
+        main_spread_line, main_totals_line,
+        names_match,
+    )
+
+    if not ODDS_API_IO_KEY:
+        logger.warning("ODDS_API_IO_KEY not set — skipping odds-api.io fetch")
+        return pd.DataFrame()
+
+    # Build a fast team-id → name lookup
+    if not teams.empty and "id" in teams.columns and "name" in teams.columns:
+        tmap = dict(zip(teams["id"].astype(str), teams["name"]))
+    else:
+        tmap = {}
+
+    def _tname(tid: str) -> str:
+        return tmap.get(str(tid), str(tid))
+
+    # Only consider upcoming matches (next 14 days)
+    from datetime import timedelta
+    from datetime import datetime as _dt
+    now = _dt.now(timezone.utc)
+
+    if not matches.empty:
+        upcoming = matches.copy()
+        if "kickoff_utc" in upcoming.columns:
+            upcoming["kickoff_utc"] = pd.to_datetime(upcoming["kickoff_utc"], utc=True, errors="coerce")
+        upcoming = upcoming[upcoming.get("status", pd.Series(dtype=str)) == "scheduled"]
+    else:
+        upcoming = pd.DataFrame()
+
+    if "kickoff_utc" in upcoming.columns and not upcoming.empty:
+        upcoming = upcoming[
+            upcoming["kickoff_utc"].notna() &
+            (upcoming["kickoff_utc"] >= now) &
+            (upcoming["kickoff_utc"] <= now + timedelta(days=14))
+        ]
+
+    scraped = now.isoformat()
+    records: list[dict] = []
+    total_events = 0
+    matched = 0
+    no_odds = 0
+
+    for league_id, api_slug in ODDS_API_IO_RUGBY_LEAGUES.items():
+        try:
+            events = get_events(
+                "rugby", league=api_slug, status="pending,live", limit=50
+            )
+        except Exception as exc:
+            logger.warning("odds-api.io get_events %s → %s", api_slug, exc)
+            continue
+
+        total_events += len(events)
+
+        for ev in events:
+            # ── Match to our ESPN match ID ────────────────────────────────
+            our_match_id = None
+            if not upcoming.empty:
+                api_date = pd.Timestamp(ev["date"]).normalize()
+                api_home = ev.get("home", "")
+                api_away = ev.get("away", "")
+
+                for _, m in upcoming.iterrows():
+                    ko = m["kickoff_utc"]
+                    if pd.isna(ko):
+                        continue
+                    if abs((pd.Timestamp(ko).normalize() - api_date).days) > 1:
+                        continue
+                    if (names_match(api_home, _tname(m["home_team_id"])) and
+                            names_match(api_away, _tname(m["away_team_id"]))):
+                        our_match_id = str(m["id"])
+                        break
+
+            if our_match_id is None:
+                # Still store odds so the UI can show them unlinked
+                our_match_id = f"api_io_{ev['id']}"
+
+            # ── Fetch odds ────────────────────────────────────────────────
+            try:
+                odds_resp = get_odds(ev["id"], ODDS_API_IO_BOOKMAKERS)
+            except urllib.error.HTTPError as e:
+                logger.debug("odds-api.io get_odds %s event %s → HTTP %s", api_slug, ev["id"], e.code)
+                no_odds += 1
+                continue
+            except Exception as exc:
+                logger.debug("odds-api.io get_odds %s event %s → %s", api_slug, ev["id"], exc)
+                no_odds += 1
+                continue
+
+            bm_data = odds_resp.get("bookmakers", {})
+            if not bm_data:
+                no_odds += 1
+                continue
+
+            row: dict = {
+                "match_id":         our_match_id,
+                "scraped_at":       scraped,
+                "home_ml":          None,
+                "away_ml":          None,
+                "spread_home":      None,
+                "spread_home_odds": None,
+                "total_line":       None,
+                "total_over_odds":  None,
+                "total_under_odds": None,
+                "bookmaker":        None,
+                "source":           "odds-api-io",
+            }
+
+            for bname in ["DraftKings", "BetMGM BR"]:
+                if bname not in bm_data:
+                    continue
+                mkts = bm_data[bname]
+
+                ml = extract_market(mkts, "ML")
+                if ml and row["home_ml"] is None:
+                    o = ml[0]
+                    if o.get("home"):
+                        row["home_ml"] = decimal_to_american(float(o["home"]))
+                    if o.get("away"):
+                        row["away_ml"] = decimal_to_american(float(o["away"]))
+                    row["bookmaker"] = bname
+
+                sp = extract_market(mkts, "Spread")
+                if sp and row["spread_home"] is None:
+                    main_sp = main_spread_line(sp)
+                    if main_sp:
+                        row["spread_home"]      = float(main_sp.get("hdp", 0))
+                        row["spread_home_odds"] = decimal_to_american(float(main_sp.get("home", 1.91)))
+
+                tot = extract_market(mkts, "Totals")
+                if tot and row["total_line"] is None:
+                    main_tot = main_totals_line(tot)
+                    if main_tot:
+                        row["total_line"]       = float(main_tot.get("hdp", 0))
+                        row["total_over_odds"]  = decimal_to_american(float(main_tot.get("over", 1.91)))
+                        row["total_under_odds"] = decimal_to_american(float(main_tot.get("under", 1.91)))
+
+            if row["home_ml"] is not None:
+                records.append(row)
+                if not our_match_id.startswith("api_io_"):
+                    matched += 1
+
+    logger.info(
+        "odds-api.io: %d API events → %d with odds → %d linked to ESPN match IDs",
+        total_events, len(records), matched,
+    )
     return pd.DataFrame(records)
 
 
@@ -241,11 +418,14 @@ def main() -> None:
     teams_merged = _upsert_csv(teams_espn, teams_path, key=["id"])
 
     # Matches (ESPN + World Rugby)
-    matches_wr   = _run_worldrugby()
-    all_matches  = pd.concat(
+    matches_wr  = _run_worldrugby()
+    all_matches = pd.concat(
         [f for f in [matches_espn, matches_wr] if not f.empty],
         ignore_index=True,
     )
+    # Deduplicate within the batch before upsert (same event can come from multiple scrapers)
+    if not all_matches.empty:
+        all_matches = all_matches.drop_duplicates(subset=["id"], keep="last")
     matches_path   = CSV_DIR / "matches.csv"
     matches_merged = _upsert_csv(all_matches, matches_path, key=["id"])
 
@@ -265,9 +445,17 @@ def main() -> None:
     if not matches_merged.empty:
         _update_elo(matches_merged)
 
-    # Odds
-    odds_new = _fetch_odds()
+    # Odds — merge from both sources
+    odds_frames = []
+    odds_old = _fetch_odds()                                    # the-odds-api.com (Six Nations)
+    if not odds_old.empty:
+        odds_frames.append(odds_old)
+    odds_new = _fetch_odds_api_io(matches_merged, teams_merged)  # odds-api.io (Super Rugby, NRL, etc.)
     if not odds_new.empty:
+        odds_frames.append(odds_new)
+
+    if odds_frames:
+        combined_odds = pd.concat(odds_frames, ignore_index=True)
         odds_path = CSV_DIR / "odds_snapshots.csv"
         try:
             from datetime import timedelta
@@ -275,11 +463,11 @@ def main() -> None:
             cutoff   = (datetime.now(timezone.utc) - timedelta(days=14)).isoformat()
             existing = existing[existing["scraped_at"].astype(str) >= cutoff]
             odds_merged = (
-                pd.concat([existing, odds_new])
+                pd.concat([existing, combined_odds])
                   .drop_duplicates(subset=["match_id", "scraped_at"], keep="last")
             )
         except FileNotFoundError:
-            odds_merged = odds_new
+            odds_merged = combined_odds
         _save_csv(odds_merged, odds_path)
 
     # Precompute models for fast Streamlit cold-start

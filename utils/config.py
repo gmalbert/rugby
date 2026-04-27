@@ -41,7 +41,7 @@ ESPN_LEAGUE_IDS: dict[str, str] = {
 # ── SofaScore API ──────────────────────────────────────────────────────────
 SOFASCORE_BASE = "https://api.sofascore.com/api/v1"
 
-# ── Odds API ───────────────────────────────────────────────────────────────
+# ── The Odds API (the-odds-api.com) ───────────────────────────────────────
 ODDS_API_KEY  = os.getenv("ODDS_API_KEY", "")
 ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 
@@ -50,6 +50,26 @@ ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 # Premiership, Top14, Super Rugby, URC, Champions Cup have no API coverage.
 ODDS_SPORT_MAP: dict[str, str] = {
     "six_nations": "rugbyunion_six_nations",
+}
+
+# ── odds-api.io ────────────────────────────────────────────────────────────
+ODDS_API_IO_KEY        = os.getenv("ODDS_API_IO_KEY", "")
+ODDS_API_IO_BASE       = "https://api.odds-api.io/v3"
+
+# Free plan: 100 req/hr, max 2 bookmakers.
+# These are the pre-selected bookmakers on the current free-tier account.
+ODDS_API_IO_BOOKMAKERS = ["DraftKings", "BetMGM BR"]
+
+# Coverage: DraftKings covers Super Rugby / NRL ML only.
+# BetMGM BR covers international rugby (ML, Spread, Totals, HT/FT, Team Totals).
+# Neither covers Premiership, Top 14, URC, or Champions Cup on the free tier.
+ODDS_API_IO_RUGBY_LEAGUES: dict[str, str] = {
+    "six_nations":   "rugby-union-six-nations",
+    "premiership":   "rugby-union-english-premiership",
+    "top14":         "rugby-union-top-14",
+    "super_rugby":   "rugby-union-super-rugby",
+    "urc":           "rugby-union-united-rugby-championship",
+    "champions_cup": "rugby-union-european-rugby-champions-cup",
 }
 
 # ── Weather API (Open-Meteo — no key required) ────────────────────────────
