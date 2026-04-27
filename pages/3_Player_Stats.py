@@ -20,7 +20,7 @@ player_df  = load_player_stats()
 
 if player_df.empty:
     st.warning(
-        "No player stats loaded. Run `python data/pipeline.py` to fetch match data.",
+        "No player stats loaded. Run `python scripts/pipeline.py` to fetch match data.",
         icon="⚠️",
     )
     st.stop()

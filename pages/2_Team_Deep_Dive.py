@@ -20,7 +20,7 @@ player_df  = load_player_stats()
 elo_df     = load_elo_ratings()
 
 if matches_df.empty or teams_df.empty:
-    st.warning("No data loaded. Run `python data/pipeline.py` first.", icon="⚠️")
+    st.warning("No data loaded. Run `python scripts/pipeline.py` first.", icon="⚠️")
     st.stop()
 
 # ── Team selector ──────────────────────────────────────────────────────────

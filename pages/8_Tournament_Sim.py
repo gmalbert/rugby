@@ -21,7 +21,7 @@ teams_df = load_teams()
 elo_df   = load_elo_ratings()
 
 if elo_df.empty or teams_df.empty:
-    st.warning("Elo ratings required. Run `python data/pipeline.py` first.", icon="⚠️")
+    st.warning("Elo ratings required. Run `python scripts/pipeline.py` first.", icon="⚠️")
     st.stop()
 
 _tmap = dict(zip(teams_df["id"], teams_df["name"])) if not teams_df.empty else {}

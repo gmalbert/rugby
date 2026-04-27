@@ -5,7 +5,7 @@ Orchestrates all scrapers → writes CSV / Parquet data files.
 Run nightly via GitHub Actions (see .github/workflows/scrape.yml).
 
 Usage:
-    python data/pipeline.py
+    python scripts/pipeline.py
 """
 
 import logging
@@ -78,7 +78,7 @@ def _append_parquet(new: pd.DataFrame, path: Path, key: list[str]) -> None:
 
 def _run_espn() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Returns (matches_df, standings_df, teams_df) aggregated across all leagues."""
-    from data.scrapers.espn_api import (
+    from scripts.scrapers.espn_api import (
         fetch_scoreboard, fetch_standings, fetch_teams
     )
 
@@ -111,7 +111,7 @@ def _run_espn() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
 
 
 def _run_worldrugby() -> pd.DataFrame:
-    from data.scrapers.worldrugby import fetch_fixtures
+    from scripts.scrapers.worldrugby import fetch_fixtures
     frames = []
     for lid in ("six_nations", "champions_cup"):
         f = fetch_fixtures(lid)
@@ -121,7 +121,7 @@ def _run_worldrugby() -> pd.DataFrame:
 
 
 def _fetch_player_stats(matches: pd.DataFrame) -> pd.DataFrame:
-    from data.scrapers.espn_api import fetch_match_stats
+    from scripts.scrapers.espn_api import fetch_match_stats
 
     # Champions Cup event IDs from ESPN are old/historical and return 404 — skip them.
     # Only fetch stats for leagues where the summary endpoint works reliably.
@@ -320,6 +320,7 @@ def _precompute_models(matches: pd.DataFrame, teams: pd.DataFrame) -> None:
 
     # ── Precomputed win probabilities for upcoming matches ─────────────────
     from datetime import timezone
+    matches["kickoff_utc"] = pd.to_datetime(matches["kickoff_utc"], utc=True, errors="coerce")
     upcoming = matches[
         (matches["status"] == "scheduled") &
         (matches["kickoff_utc"] >= pd.Timestamp.now(tz=timezone.utc))

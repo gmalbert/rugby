@@ -48,7 +48,7 @@ league_filter = st.sidebar.multiselect(
 )
 
 if matches_df.empty:
-    st.info("No data loaded yet. Run `python data/pipeline.py` to populate.")
+    st.info("No data loaded yet. Run `python scripts/pipeline.py` to populate.")
     st.stop()
 
 # ── Upcoming fixtures ──────────────────────────────────────────────────────

@@ -3,7 +3,7 @@
 ## Project Summary
 ScrumBet is a multi-page **Streamlit** rugby analytics app. The entry point is
 `predictions.py`; all other pages live in `pages/`. Data is fetched by
-`data/pipeline.py` and stored as CSV + Parquet in `data_files/`.
+`scripts/pipeline.py` and stored as CSV + Parquet in `data_files/`.
 
 ---
 
@@ -104,9 +104,9 @@ LEAGUES = {
 
 ---
 
-## Pipeline (`data/pipeline.py`)
-- Run manually: `python data/pipeline.py`
-- Scrapers: `data/scrapers/espn_api.py`, `sofascore.py`, `rugbypass.py`, `worldrugby.py`.
+## Pipeline (`scripts/pipeline.py`)
+- Run manually: `python scripts/pipeline.py`
+- Scrapers: `scripts/scrapers/espn_api.py`, `sofascore.py`, `rugbypass.py`, `worldrugby.py`.
 - Output: writes/updates CSV files in `data_files/csv/` and Parquet in `data_files/parquet/`.
 - GitHub Actions cron: `.github/workflows/` — runs daily at 03:00 UTC.
 
