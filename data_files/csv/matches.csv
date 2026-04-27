@@ -111,11 +111,11 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,WWWWL,LWWWL
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,WLLLL,LWLLW
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,WLWWW,LLLLW
-603045,premiership,premiership-25900,premiership-116227,2026-04-26T14:30Z,34,31,0,0,final,Kingsholm,0,603045,LLWLW,LWWWW
+603045,premiership,premiership-25900,premiership-116227,2026-04-26T14:30Z,34,31,0,0,final,Kingsholm,0,603045,WLLWL,LLWWW
 602656,top14,top14-25952,top14-25965,2026-05-08T18:45Z,0,0,0,0,scheduled,Scotstoun Stadium,0,602656,LLLWW,WWLLL
 602657,top14,top14-25926,top14-25962,2026-05-08T18:45Z,0,0,0,0,scheduled,Affidea Stadium,0,602657,LLWWW,WLLWW
-603183,super_rugby,super_rugby-25934,super_rugby-289338,2026-04-26T04:30Z,42,22,0,0,final,One NZ Stadium,0,603183,WWWWL,WWLLL
-602829,urc,urc-25922,urc-25917,2026-04-26T19:05Z,24,27,0,0,final,Stadium de Toulouse,0,602829,WLWWL,WLLWW
+603183,super_rugby,super_rugby-25934,super_rugby-289338,2026-04-26T04:30Z,42,22,0,0,final,One NZ Stadium,0,603183,WWWWW,LWWLL
+602829,urc,urc-25922,urc-25917,2026-04-26T19:05Z,24,27,0,0,final,Stadium de Toulouse,0,602829,LWLWW,WWLLW
 602927,champions_cup,champions_cup-25924,champions_cup-25986,2026-05-02T14:00Z,0,0,0,0,scheduled,Aviva Stadium,0,602927,LWWWW,WWWWL
 751,champions_cup,champions_cup-,champions_cup-,1871-03-27T00:00:00+00:00,0,0,0,0,final,Raeburn Place,0,,,
 752,champions_cup,champions_cup-,champions_cup-,1872-02-05T00:00:00+00:00,0,0,0,0,final,Kennington Oval,0,,,
