@@ -45,18 +45,26 @@ SOFASCORE_BASE = "https://api.sofascore.com/api/v1"
 ODDS_API_KEY  = os.getenv("ODDS_API_KEY", "")
 ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 
+# Only sport keys that actually exist in The Odds API.
+# Rugby Union coverage is very limited — Six Nations only, and only when active.
+# Premiership, Top14, Super Rugby, URC, Champions Cup have no API coverage.
 ODDS_SPORT_MAP: dict[str, str] = {
-    "premiership":   "rugbyunion_gallagher_premiership",
-    "six_nations":   "rugbyunion_six_nations",
-    "super_rugby":   "rugbyunion_super_rugby",
-    "urc":           "rugbyunion_urc",
-    "top14":         "rugbyunion_top14",
-    "champions_cup": "rugbyunion_ecc",
+    "six_nations": "rugbyunion_six_nations",
 }
 
-# ── Weather API ────────────────────────────────────────────────────────────
-OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "")
-OPENWEATHER_BASE    = "https://api.openweathermap.org/data/2.5"
+# ── Weather API (Open-Meteo — no key required) ────────────────────────────
+OPEN_METEO_GEOCODING_BASE = "https://geocoding-api.open-meteo.com/v1"
+OPEN_METEO_BASE           = "https://api.open-meteo.com/v1"
+
+# WMO weather interpretation codes → human-readable descriptions
+WMO_DESCRIPTIONS: dict[int, str] = {
+    0: "Clear sky", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast",
+    51: "Light drizzle", 53: "Moderate drizzle", 55: "Heavy drizzle",
+    61: "Slight rain", 63: "Moderate rain", 65: "Heavy rain",
+    71: "Slight snow", 73: "Moderate snow", 75: "Heavy snow",
+    80: "Slight showers", 81: "Moderate showers", 82: "Violent showers",
+    95: "Thunderstorm", 99: "Thunderstorm with hail",
+}
 
 # ── Elo constants ──────────────────────────────────────────────────────────
 ELO_K            = 32

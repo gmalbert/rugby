@@ -11,13 +11,14 @@ from datetime import datetime, timezone, timedelta
 from utils.cache import (
     load_teams, load_matches, load_player_stats,
     load_elo_ratings, load_odds,
+    fit_dc_cached, fit_try_scorer_cached,
 )
-from utils.config import LEAGUES, OPENWEATHER_API_KEY, OPENWEATHER_BASE
+from utils.config import LEAGUES, OPEN_METEO_GEOCODING_BASE, OPEN_METEO_BASE, WMO_DESCRIPTIONS
 from utils.charts import probability_bar, scoreline_heatmap, bar_chart
 from utils.odds import american_to_implied, format_american
 import models.dixon_coles as dc
 import models.elo as elo_model
-from models.try_scorer import build_features, train, top_try_scorers_for_match
+from models.try_scorer import top_try_scorers_for_match
 
 st.title("🔬 Match Analysis")
 
@@ -87,7 +88,7 @@ if not elo_df.empty:
 dc_result = None
 final_matches = matches_df[matches_df["status"] == "final"]
 if len(final_matches) >= 15:
-    dc_model = dc.fit(final_matches)
+    dc_model = fit_dc_cached(len(final_matches), matches_df)
     if dc_model:
         dc_result = dc.predict(home_id, away_id, dc_model)
 
@@ -95,13 +96,13 @@ if len(final_matches) >= 15:
 try_model = None
 scorer_preds = pd.DataFrame()
 if not player_df.empty and len(final_matches) >= 20:
-    features_df = build_features(player_df, final_matches)
-    if not features_df.empty:
-        try_model = train(features_df)
-        if try_model:
-            scorer_preds = top_try_scorers_for_match(
-                home_id, away_id, player_df, try_model, n=5
-            )
+    try_model = fit_try_scorer_cached(
+        len(player_df) + len(final_matches), player_df, matches_df
+    )
+    if try_model:
+        scorer_preds = top_try_scorers_for_match(
+            home_id, away_id, player_df, try_model, n=5
+        )
 
 # ── Win Probabilities ──────────────────────────────────────────────────────
 col_left, col_right = st.columns(2)
@@ -285,24 +286,46 @@ else:
 
 # ── Weather widget ─────────────────────────────────────────────────────────
 venue = str(match.get("venue", "") or "")
-if OPENWEATHER_API_KEY and venue:
+if venue:
     st.divider()
     st.subheader("🌦️ Venue Weather at Kickoff")
     import requests
     try:
-        r = requests.get(
-            f"{OPENWEATHER_BASE}/weather",
-            params={"q": venue, "appid": OPENWEATHER_API_KEY, "units": "metric"},
+        geo = requests.get(
+            f"{OPEN_METEO_GEOCODING_BASE}/search",
+            params={"name": venue, "count": 1, "language": "en", "format": "json"},
             timeout=5,
-        )
-        if r.status_code == 200:
-            wd = r.json()
-            temp = wd.get("main", {}).get("temp", "—")
-            desc = wd.get("weather", [{}])[0].get("description", "—").capitalize()
-            wind = wd.get("wind", {}).get("speed", "—")
-            st.metric(venue, f"{desc}, {temp}°C, wind {wind} m/s")
+        ).json().get("results", [])
+        if geo:
+            lat, lon = geo[0]["latitude"], geo[0]["longitude"]
+            wr = requests.get(
+                f"{OPEN_METEO_BASE}/forecast",
+                params={
+                    "latitude":  lat,
+                    "longitude": lon,
+                    "current":   "temperature_2m,weather_code,wind_speed_10m,"
+                                 "wind_direction_10m,precipitation,relative_humidity_2m",
+                    "wind_speed_unit": "ms",
+                    "forecast_days": 1,
+                },
+                timeout=5,
+            )
+            if wr.status_code == 200:
+                c = wr.json().get("current", {})
+                temp  = c.get("temperature_2m", "—")
+                desc  = WMO_DESCRIPTIONS.get(c.get("weather_code", -1), "Unknown")
+                wind  = c.get("wind_speed_10m", "—")
+                rain  = c.get("precipitation", 0.0)
+                humid = c.get("relative_humidity_2m", "—")
+                col_w1, col_w2, col_w3, col_w4 = st.columns(4)
+                col_w1.metric("Conditions", desc)
+                col_w2.metric("Temperature", f"{temp}°C")
+                col_w3.metric("Wind", f"{wind} m/s")
+                col_w4.metric("Precipitation", f"{rain} mm")
+            else:
+                st.caption(f"Weather unavailable for '{venue}'.")
         else:
-            st.caption(f"Weather unavailable for '{venue}'.")
+            st.caption(f"Could not geocode venue '{venue}'.")
     except Exception:
         st.caption("Weather service unavailable.")
 

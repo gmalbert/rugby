@@ -143,32 +143,75 @@ def fetch_pre_match_odds(event_id: str) -> dict:
 
 ---
 
-## 6. OpenWeatherMap — Already Integrated, Add Wind  ⭐ (Low effort)
+## 6. Open-Meteo — Replace OpenWeatherMap (No API Key)  ⭐ (Low effort)
 
-Currently fetching temp + description. Extend to include:
-- `wind_speed` (m/s) — affects kicking/lineouts significantly above 10 m/s
-- `wind_deg` — end-to-end vs crossfield wind matters
-- `precipitation` mm/h — affects handling errors
+Open-Meteo is a free, open-source weather API with no key required. Replace the current
+OpenWeatherMap integration to fetch extended conditions via two calls: geocoding (venue
+name → lat/lon) then the forecast endpoint.
+
+Data available:
+- `temperature_2m` (°C)
+- `wind_speed_10m` (km/h) — affects kicking/lineouts significantly above 36 km/h (~10 m/s)
+- `wind_direction_10m` (°) — end-to-end vs crossfield wind matters
+- `precipitation` (mm/h) — affects handling errors
+- `relative_humidity_2m` (%)
+- `weather_code` (WMO code) — maps to a human-readable description
 
 ```python
-def fetch_weather_extended(lat: float, lon: float) -> dict:
+OPEN_METEO_GEOCODING_BASE = "https://geocoding-api.open-meteo.com/v1"
+OPEN_METEO_BASE           = "https://api.open-meteo.com/v1"
+
+# Subset of WMO weather interpretation codes
+WMO_DESCRIPTIONS = {
+    0: "Clear sky", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast",
+    51: "Light drizzle", 53: "Moderate drizzle", 55: "Heavy drizzle",
+    61: "Slight rain", 63: "Moderate rain", 65: "Heavy rain",
+    71: "Slight snow", 73: "Moderate snow", 75: "Heavy snow",
+    80: "Slight showers", 81: "Moderate showers", 82: "Violent showers",
+    95: "Thunderstorm", 99: "Thunderstorm with hail",
+}
+
+def geocode_venue(venue: str) -> tuple[float, float] | None:
+    """Resolve a venue/city name to (latitude, longitude) via Open-Meteo geocoding."""
     r = requests.get(
-        "https://api.openweathermap.org/data/2.5/weather",
+        f"{OPEN_METEO_GEOCODING_BASE}/search",
+        params={"name": venue, "count": 1, "language": "en", "format": "json"},
+        timeout=10,
+    )
+    results = r.json().get("results", [])
+    if not results:
+        return None
+    return results[0]["latitude"], results[0]["longitude"]
+
+def fetch_weather_extended(venue: str) -> dict | None:
+    """Return current weather for a venue name. No API key required."""
+    coords = geocode_venue(venue)
+    if coords is None:
+        return None
+    lat, lon = coords
+    r = requests.get(
+        f"{OPEN_METEO_BASE}/forecast",
         params={
-            "lat": lat, "lon": lon,
-            "appid": OPENWEATHER_API_KEY,
-            "units": "metric",
+            "latitude":  lat,
+            "longitude": lon,
+            "current":   "temperature_2m,weather_code,wind_speed_10m,"
+                         "wind_direction_10m,precipitation,relative_humidity_2m",
+            "wind_speed_unit": "ms",  # return in m/s for consistency
+            "forecast_days": 1,
         },
         timeout=10,
     )
-    d = r.json()
+    if r.status_code != 200:
+        return None
+    c = r.json().get("current", {})
+    code = c.get("weather_code", 0)
     return {
-        "temp_c":       d["main"]["temp"],
-        "description":  d["weather"][0]["description"],
-        "wind_speed":   d["wind"]["speed"],          # m/s
-        "wind_deg":     d["wind"].get("deg", 0),     # degrees
-        "rain_1h":      d.get("rain", {}).get("1h", 0.0),  # mm
-        "humidity":     d["main"]["humidity"],
+        "temp_c":       c.get("temperature_2m"),
+        "description":  WMO_DESCRIPTIONS.get(code, f"Code {code}"),
+        "wind_speed":   c.get("wind_speed_10m"),      # m/s
+        "wind_deg":     c.get("wind_direction_10m"),  # degrees
+        "rain_1h":      c.get("precipitation", 0.0),  # mm
+        "humidity":     c.get("relative_humidity_2m"),
     }
 
 # Wind impact score (for kicking-game adjustment)
@@ -176,6 +219,10 @@ def wind_impact_score(wind_speed_ms: float) -> float:
     """0 = no impact, 1 = severe impact on kicking/lineouts."""
     return min(1.0, wind_speed_ms / 15.0)
 ```
+
+**No change to requirements.txt needed** — `requests` is already a dependency.
+Remove `OPENWEATHER_API_KEY` and `OPENWEATHER_BASE` from `utils/config.py` and
+`.env`; replace with the two constants above.
 
 ---
 
@@ -220,5 +267,5 @@ def build_referee_stats(matches_with_details: pd.DataFrame) -> pd.DataFrame:
 | 5 | Injury RSS feeds | Medium | ⭐⭐ |
 | 6 | Referee stats DB | Medium — rugbypy source | ⭐⭐ |
 | 7 | Betfair Exchange | High — auth required | ⭐⭐⭐ |
-| 8 | Weather extended | Low — extend existing | ⭐ |
+| 8 | Open-Meteo (extended wind/rain) | Low — no key, extend existing | ⭐ |
 | 9 | Twitter/X | High — rate limits | ⭐ |

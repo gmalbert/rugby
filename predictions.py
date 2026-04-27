@@ -274,13 +274,17 @@ pg = st.navigation(
             st.Page("pages/2_Team_Deep_Dive.py",  title="Team Deep Dive",  icon="📊"),
             st.Page("pages/3_Player_Stats.py",    title="Player Stats",    icon="👟"),
             st.Page("pages/4_Match_Analysis.py",  title="Match Analysis",  icon="🔍"),
+            st.Page("pages/9_Player_Compare.py",  title="Player Compare",  icon="🔬"),
         ],
         "Betting": [
             st.Page("pages/5_Betting_Edge.py",    title="Betting Edge",    icon="⚡"),
+            st.Page("pages/7_Line_Movement.py",   title="Line Movement",   icon="📉"),
         ],
         "Models": [
-            st.Page("pages/6_Model_Lab.py",        title="Model Lab",       icon="🧪"),
+            st.Page("pages/6_Model_Lab.py",       title="Model Lab",       icon="🧪"),
+            st.Page("pages/8_Tournament_Sim.py",  title="Tournament Sim",  icon="🎯"),
         ],
     }
 )
 pg.run()
+
