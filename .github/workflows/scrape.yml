@@ -1,0 +1,40 @@
+name: Nightly Data Refresh
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # 3 AM UTC daily
+  workflow_dispatch:        # manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pipeline
+        run: python data/pipeline.py
+        env:
+          ODDS_API_KEY:        ${{ secrets.ODDS_API_KEY }}
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+
+      - name: Commit updated data files
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name  "github-actions[bot]"
+          git add data/csv/ data/parquet/
+          git diff --staged --quiet || git commit -m "chore: nightly data refresh $(date -u +'%Y-%m-%d')"
+          git push

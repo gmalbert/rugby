@@ -1,0 +1,206 @@
+id,league_id,name,short_name,logo_url,espn_id
+premiership-bath,premiership,Bath Rugby,BAT,,
+premiership-bristol-bears,premiership,Bristol Bears,BRI,,
+premiership-gloucester,premiership,Gloucester Rugby,GLO,,
+top14-toulouse,top14,Stade Toulousain,TLO,,
+top14-la-rochelle,top14,La Rochelle,LRO,,
+top14-bordeaux-begles,top14,Bordeaux-Bègle,BOR,,
+top14-lyon,top14,Lyon OU,LYO,,
+top14-stade-francais,top14,Stade Français,SFP,,
+top14-racing-92,top14,Racing 92,R92,,
+top14-clermont,top14,ASM Clermont,CLR,,
+top14-castres,top14,Castres Olympique,CAS,,
+top14-pau,top14,Section Paloise,PAU,,
+top14-montpellier,top14,Montpellier HR,MHR,,
+top14-perpignan,top14,USA Perpignan,USP,,
+top14-toulon,top14,RC Toulon,RCT,,
+top14-vannes,top14,RC Vannes,VAN,,
+top14-bayonne,top14,Aviron Bayonnais,ABB,,
+super_rugby-force,super_rugby,Western Force,FOR,,
+super_rugby-waratahs,super_rugby,NSW Waratahs,WAR,,
+super_rugby-reds,super_rugby,Queensland Reds,RED,,
+urc-leinster,urc,Leinster Rugby,LEI,,
+urc-munster,urc,Munster Rugby,MUN,,
+urc-ulster,urc,Ulster Rugby,ULS,,
+urc-connacht,urc,Connacht Rugby,CON,,
+urc-glasgow,urc,Glasgow Warriors,GLA,,
+urc-edinburgh,urc,Edinburgh Rugby,EDI,,
+urc-cardiff,urc,Cardiff Rugby,CAR,,
+urc-dragons,urc,Dragons RFC,DRA,,
+urc-ospreys,urc,Ospreys,OSP,,
+urc-scarlets,urc,Scarlets,SCA,,
+urc-benetton,urc,Benetton Rugby,BEN,,
+urc-zebre,urc,Zebre Parma,ZEB,,
+urc-bulls,urc,Vodacom Bulls,BUL,,
+urc-lions,urc,Emirates Lions,LIO,,
+urc-sharks,urc,Cell C Sharks,SHA,,
+urc-stormers,urc,DHL Stormers,STO,,
+champions_cup-toulouse,champions_cup,Stade Toulousain,TLO,,
+champions_cup-bath,champions_cup,Bath Rugby,BAT,,
+champions_cup-northampton,champions_cup,Northampton Saints,NOR,,
+champions_cup-glasgow,champions_cup,Glasgow Warriors,GLA,,
+champions_cup-sharks,champions_cup,Cell C Sharks,SHA,,
+six_nations-england,six_nations,England,ENG,https://a.espncdn.com/i/teamlogos/rugby/teams/500/1.png,
+six_nations-france,six_nations,France,FRA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/9.png,
+six_nations-ireland,six_nations,Ireland,IRE,https://a.espncdn.com/i/teamlogos/rugby/teams/500/3.png,
+six_nations-italy,six_nations,Italy,ITA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/20.png,
+six_nations-scotland,six_nations,Scotland,SCO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/2.png,
+six_nations-wales,six_nations,Wales,WAL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/4.png,
+premiership-bath-rugby,premiership,Bath Rugby,BAT,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25898.png,
+premiership-bristol-rugby,premiership,Bristol Rugby,BRI,,
+premiership-exeter-chiefs,premiership,Exeter Chiefs,EXE,https://a.espncdn.com/i/teamlogos/rugby/teams/500/116227.png,
+premiership-gloucester-rugby,premiership,Gloucester Rugby,GLO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25900.png,
+premiership-harlequins,premiership,Harlequins,HAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25901.png,
+premiership-leicester-tigers,premiership,Leicester Tigers,LEI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25903.png,
+premiership-newcastle-falcons,premiership,Newcastle Falcons,NEW,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25906.png,
+premiership-northampton-saints,premiership,Northampton Saints,NOR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25907.png,
+premiership-sale-sharks,premiership,Sale Sharks,SAL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25908.png,
+premiership-saracens,premiership,Saracens,SAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25909.png,
+top14-benetton-treviso,top14,Benetton Treviso,BEN,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25927.png,
+top14-bulls,top14,Bulls,BUL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25953.png,
+top14-cardiff-blues,top14,Cardiff Blues,CAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25965.png,
+top14-connacht,top14,Connacht,CON,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25923.png,
+top14-dragons,top14,Dragons,DRA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25967.png,
+top14-edinburgh,top14,Edinburgh,EDI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25951.png,
+top14-glasgow-warriors,top14,Glasgow Warriors,GLA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25952.png,
+top14-leinster,top14,Leinster,LEI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25924.png,
+top14-lions,top14,Lions,LIO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25958.png,
+top14-munster,top14,Munster,MUN,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25925.png,
+top14-ospreys,top14,Ospreys,OSP,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25968.png,
+top14-scarlets,top14,Scarlets,SCA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25966.png,
+top14-sharks,top14,Sharks,SHA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25961.png,
+top14-stormers,top14,Stormers,STO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25962.png,
+top14-ulster,top14,Ulster,ULS,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25926.png,
+top14-zebre,top14,Zebre,ZEB,https://a.espncdn.com/i/teamlogos/rugby/teams/500/167124.png,
+super_rugby-blues,super_rugby,Blues,BLU,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25932.png,
+super_rugby-brumbies,super_rugby,Brumbies,ACT,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25889.png,
+super_rugby-chiefs,super_rugby,Chiefs,CHI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25934.png,
+super_rugby-crusaders,super_rugby,Crusaders,CRU,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25936.png,
+super_rugby-fijian-drua,super_rugby,Fijian Drua,FIJ,https://a.espncdn.com/i/teamlogos/rugby/teams/500/289338.png,
+super_rugby-highlanders,super_rugby,Highlanders,HIG,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25938.png,
+super_rugby-hurricanes,super_rugby,Hurricanes,HUR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25939.png,
+super_rugby-melbourne-rebels,super_rugby,Melbourne Rebels,MEL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25894.png,
+super_rugby-moana-pasifika,super_rugby,Moana Pasifika,MOA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/289319.png,
+super_rugby-new-south-wales-waratahs,super_rugby,New South Wales Waratahs,NSW,https://a.espncdn.com/i/teamlogos/rugby/teams/500/227.png,
+super_rugby-queensland-reds,super_rugby,Queensland Reds,QUE,https://a.espncdn.com/i/teamlogos/rugby/teams/500/182.png,
+super_rugby-western-force,super_rugby,Western Force,WES,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25893.png,
+urc-bayonne,urc,Bayonne,BAY,,
+urc-bordeaux-begles,urc,Bordeaux Begles,UNI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/143737.png,
+urc-castres-olympique,urc,Castres Olympique,CAS,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25916.png,
+urc-clermont-auvergne,urc,Clermont Auvergne,ASM,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25917.png,
+urc-la-rochelle,urc,La Rochelle,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/119318.png,
+urc-lyon,urc,Lyon,LYO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/143736.png,
+urc-montpellier-herault,urc,Montpellier Herault,MON,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25918.png,
+urc-oyonnax,urc,Oyonnax,OYO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/190153.png,
+urc-pau,urc,Pau,SEC,https://a.espncdn.com/i/teamlogos/rugby/teams/500/270567.png,
+urc-perpignan,urc,Perpignan,USA,https://a.espncdn.com/i/teamlogos/countries/500/usa.png,
+urc-racing-92,urc,Racing 92,RAC,https://a.espncdn.com/i/teamlogos/rugby/teams/500/99855.png,
+urc-stade-francais-paris,urc,Stade Francais Paris,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25921.png,
+urc-stade-toulousain,urc,Stade Toulousain,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25922.png,
+urc-toulon,urc,Toulon,RC,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25986.png,
+champions_cup-bath-rugby,champions_cup,Bath Rugby,BAT,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25898.png,
+champions_cup-bayonne,champions_cup,Bayonne,BAY,,
+champions_cup-bordeaux-begles,champions_cup,Bordeaux Begles,UNI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/143737.png,
+champions_cup-bristol-rugby,champions_cup,Bristol Rugby,BRI,,
+champions_cup-bulls,champions_cup,Bulls,BUL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25953.png,
+champions_cup-cardiff-blues,champions_cup,Cardiff Blues,CAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25965.png,
+champions_cup-connacht,champions_cup,Connacht,CON,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25923.png,
+champions_cup-exeter-chiefs,champions_cup,Exeter Chiefs,EXE,https://a.espncdn.com/i/teamlogos/rugby/teams/500/116227.png,
+champions_cup-glasgow-warriors,champions_cup,Glasgow Warriors,GLA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25952.png,
+champions_cup-harlequins,champions_cup,Harlequins,HAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25901.png,
+champions_cup-la-rochelle,champions_cup,La Rochelle,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/119318.png,
+champions_cup-leicester-tigers,champions_cup,Leicester Tigers,LEI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25903.png,
+champions_cup-leinster,champions_cup,Leinster,LEI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25924.png,
+champions_cup-lyon,champions_cup,Lyon,LYO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/143736.png,
+champions_cup-munster,champions_cup,Munster,MUN,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25925.png,
+champions_cup-northampton-saints,champions_cup,Northampton Saints,NOR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25907.png,
+champions_cup-racing-92,champions_cup,Racing 92,RAC,https://a.espncdn.com/i/teamlogos/rugby/teams/500/99855.png,
+champions_cup-sale-sharks,champions_cup,Sale Sharks,SAL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25908.png,
+champions_cup-saracens,champions_cup,Saracens,SAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25909.png,
+champions_cup-stade-francais-paris,champions_cup,Stade Francais Paris,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25921.png,
+champions_cup-stade-toulousain,champions_cup,Stade Toulousain,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25922.png,
+champions_cup-stormers,champions_cup,Stormers,STO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25962.png,
+champions_cup-toulon,champions_cup,Toulon,RC,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25986.png,
+champions_cup-ulster,champions_cup,Ulster,ULS,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25926.png,
+six_nations-1,six_nations,England,ENG,https://a.espncdn.com/i/teamlogos/rugby/teams/500/1.png,1
+six_nations-9,six_nations,France,FRA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/9.png,9
+six_nations-3,six_nations,Ireland,IRE,https://a.espncdn.com/i/teamlogos/rugby/teams/500/3.png,3
+six_nations-20,six_nations,Italy,ITA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/20.png,20
+six_nations-2,six_nations,Scotland,SCO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/2.png,2
+six_nations-4,six_nations,Wales,WAL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/4.png,4
+premiership-25898,premiership,Bath Rugby,BAT,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25898.png,25898
+premiership-25899,premiership,Bristol Rugby,BRI,,25899
+premiership-116227,premiership,Exeter Chiefs,EXE,https://a.espncdn.com/i/teamlogos/rugby/teams/500/116227.png,116227
+premiership-25900,premiership,Gloucester Rugby,GLO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25900.png,25900
+premiership-25901,premiership,Harlequins,HAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25901.png,25901
+premiership-25903,premiership,Leicester Tigers,LEI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25903.png,25903
+premiership-25906,premiership,Newcastle Falcons,NEW,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25906.png,25906
+premiership-25907,premiership,Northampton Saints,NOR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25907.png,25907
+premiership-25908,premiership,Sale Sharks,SAL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25908.png,25908
+premiership-25909,premiership,Saracens,SAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25909.png,25909
+top14-25927,top14,Benetton Treviso,BEN,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25927.png,25927
+top14-25953,top14,Bulls,BUL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25953.png,25953
+top14-25965,top14,Cardiff Blues,CAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25965.png,25965
+top14-25923,top14,Connacht,CON,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25923.png,25923
+top14-25967,top14,Dragons,DRA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25967.png,25967
+top14-25951,top14,Edinburgh,EDI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25951.png,25951
+top14-25952,top14,Glasgow Warriors,GLA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25952.png,25952
+top14-25924,top14,Leinster,LEI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25924.png,25924
+top14-25958,top14,Lions,LIO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25958.png,25958
+top14-25925,top14,Munster,MUN,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25925.png,25925
+top14-25968,top14,Ospreys,OSP,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25968.png,25968
+top14-25966,top14,Scarlets,SCA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25966.png,25966
+top14-25961,top14,Sharks,SHA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25961.png,25961
+top14-25962,top14,Stormers,STO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25962.png,25962
+top14-25926,top14,Ulster,ULS,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25926.png,25926
+top14-167124,top14,Zebre,ZEB,https://a.espncdn.com/i/teamlogos/rugby/teams/500/167124.png,167124
+super_rugby-25932,super_rugby,Blues,BLU,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25932.png,25932
+super_rugby-25889,super_rugby,Brumbies,ACT,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25889.png,25889
+super_rugby-25934,super_rugby,Chiefs,CHI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25934.png,25934
+super_rugby-25936,super_rugby,Crusaders,CRU,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25936.png,25936
+super_rugby-289338,super_rugby,Fijian Drua,FIJ,https://a.espncdn.com/i/teamlogos/rugby/teams/500/289338.png,289338
+super_rugby-25938,super_rugby,Highlanders,HIG,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25938.png,25938
+super_rugby-25939,super_rugby,Hurricanes,HUR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25939.png,25939
+super_rugby-25894,super_rugby,Melbourne Rebels,MEL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25894.png,25894
+super_rugby-289319,super_rugby,Moana Pasifika,MOA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/289319.png,289319
+super_rugby-227,super_rugby,New South Wales Waratahs,NSW,https://a.espncdn.com/i/teamlogos/rugby/teams/500/227.png,227
+super_rugby-182,super_rugby,Queensland Reds,QUE,https://a.espncdn.com/i/teamlogos/rugby/teams/500/182.png,182
+super_rugby-25893,super_rugby,Western Force,WES,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25893.png,25893
+urc-25912,urc,Bayonne,BAY,,25912
+urc-143737,urc,Bordeaux Begles,UNI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/143737.png,143737
+urc-25916,urc,Castres Olympique,CAS,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25916.png,25916
+urc-25917,urc,Clermont Auvergne,ASM,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25917.png,25917
+urc-119318,urc,La Rochelle,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/119318.png,119318
+urc-143736,urc,Lyon,LYO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/143736.png,143736
+urc-25918,urc,Montpellier Herault,MON,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25918.png,25918
+urc-190153,urc,Oyonnax,OYO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/190153.png,190153
+urc-270567,urc,Pau,SEC,https://a.espncdn.com/i/teamlogos/rugby/teams/500/270567.png,270567
+urc-25920,urc,Perpignan,USA,https://a.espncdn.com/i/teamlogos/countries/500/usa.png,25920
+urc-99855,urc,Racing 92,RAC,https://a.espncdn.com/i/teamlogos/rugby/teams/500/99855.png,99855
+urc-25921,urc,Stade Francais Paris,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25921.png,25921
+urc-25922,urc,Stade Toulousain,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25922.png,25922
+urc-25986,urc,Toulon,RC,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25986.png,25986
+champions_cup-25898,champions_cup,Bath Rugby,BAT,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25898.png,25898
+champions_cup-25912,champions_cup,Bayonne,BAY,,25912
+champions_cup-143737,champions_cup,Bordeaux Begles,UNI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/143737.png,143737
+champions_cup-25899,champions_cup,Bristol Rugby,BRI,,25899
+champions_cup-25953,champions_cup,Bulls,BUL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25953.png,25953
+champions_cup-25965,champions_cup,Cardiff Blues,CAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25965.png,25965
+champions_cup-25923,champions_cup,Connacht,CON,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25923.png,25923
+champions_cup-116227,champions_cup,Exeter Chiefs,EXE,https://a.espncdn.com/i/teamlogos/rugby/teams/500/116227.png,116227
+champions_cup-25952,champions_cup,Glasgow Warriors,GLA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25952.png,25952
+champions_cup-25901,champions_cup,Harlequins,HAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25901.png,25901
+champions_cup-119318,champions_cup,La Rochelle,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/119318.png,119318
+champions_cup-25903,champions_cup,Leicester Tigers,LEI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25903.png,25903
+champions_cup-25924,champions_cup,Leinster,LEI,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25924.png,25924
+champions_cup-143736,champions_cup,Lyon,LYO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/143736.png,143736
+champions_cup-25925,champions_cup,Munster,MUN,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25925.png,25925
+champions_cup-25907,champions_cup,Northampton Saints,NOR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25907.png,25907
+champions_cup-99855,champions_cup,Racing 92,RAC,https://a.espncdn.com/i/teamlogos/rugby/teams/500/99855.png,99855
+champions_cup-25908,champions_cup,Sale Sharks,SAL,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25908.png,25908
+champions_cup-25909,champions_cup,Saracens,SAR,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25909.png,25909
+champions_cup-25921,champions_cup,Stade Francais Paris,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25921.png,25921
+champions_cup-25922,champions_cup,Stade Toulousain,STA,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25922.png,25922
+champions_cup-25962,champions_cup,Stormers,STO,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25962.png,25962
+champions_cup-25986,champions_cup,Toulon,RC,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25986.png,25986
+champions_cup-25926,champions_cup,Ulster,ULS,https://a.espncdn.com/i/teamlogos/rugby/teams/500/25926.png,25926
