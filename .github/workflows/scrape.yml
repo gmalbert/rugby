@@ -31,10 +31,16 @@ jobs:
           ODDS_API_KEY:        ${{ secrets.ODDS_API_KEY }}
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
 
+      - name: Export best bets for Sports Picks Grid
+        run: python scripts/export_best_bets.py
+        continue-on-error: true
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
       - name: Commit updated data files
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name  "github-actions[bot]"
-          git add data_files/csv/ data_files/parquet/
+          git add data_files/csv/ data_files/parquet/ data_files/best_bets_today.json
           git diff --staged --quiet || git commit -m "chore: nightly data refresh $(date -u +'%Y-%m-%d')"
           git push
