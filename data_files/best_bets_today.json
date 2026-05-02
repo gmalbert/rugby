@@ -1,40 +1,40 @@
 {
   "meta": {
     "sport": "Rugby",
-    "generated_at": "2026-04-30T02:04:31.260820+00:00",
+    "generated_at": "2026-05-02T04:08:13.199097+00:00",
     "model_version": "1.0.0",
     "season": "2026"
   },
   "bets": [
     {
-      "game_date": "2026-04-29",
+      "game_date": "2026-05-02",
       "game_time": "2026-",
-      "game": "Scotland @ Ireland",
-      "home_team": "Ireland",
-      "away_team": "Scotland",
+      "game": "Toulon @ Leinster",
+      "home_team": "Leinster",
+      "away_team": "Toulon",
       "bet_type": "Home ML",
-      "pick": "Back Ireland",
-      "confidence": 69.7,
-      "edge": 13.1,
-      "tier": "Elite",
-      "odds": -130,
+      "pick": "Fade Toulon",
+      "confidence": 53.0,
+      "edge": -28.3,
+      "tier": "Standard",
+      "odds": -435,
       "line": null,
-      "league": "Six Nations"
+      "league": "European Champions Cup"
     },
     {
-      "game_date": "2026-04-29",
+      "game_date": "2026-05-02",
       "game_time": "2026-",
-      "game": "Scotland @ Ireland",
-      "home_team": "Ireland",
-      "away_team": "Scotland",
+      "game": "Toulon @ Leinster",
+      "home_team": "Leinster",
+      "away_team": "Toulon",
       "bet_type": "Away ML",
-      "pick": "Fade Scotland",
-      "confidence": 25.8,
-      "edge": -21.8,
-      "tier": "Standard",
-      "odds": 110,
+      "pick": "Back Leinster",
+      "confidence": 38.7,
+      "edge": 17.5,
+      "tier": "Elite",
+      "odds": 370,
       "line": null,
-      "league": "Six Nations"
+      "league": "European Champions Cup"
     }
   ]
 }
