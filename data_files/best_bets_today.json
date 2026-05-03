@@ -1,40 +1,10 @@
 {
   "meta": {
     "sport": "Rugby",
-    "generated_at": "2026-05-02T04:08:13.199097+00:00",
+    "generated_at": "2026-05-03T04:20:45.042709+00:00",
     "model_version": "1.0.0",
-    "season": "2026"
+    "season": "2026",
+    "notes": "No scheduled rugby matches for 2026-05-03"
   },
-  "bets": [
-    {
-      "game_date": "2026-05-02",
-      "game_time": "2026-",
-      "game": "Toulon @ Leinster",
-      "home_team": "Leinster",
-      "away_team": "Toulon",
-      "bet_type": "Home ML",
-      "pick": "Fade Toulon",
-      "confidence": 53.0,
-      "edge": -28.3,
-      "tier": "Standard",
-      "odds": -435,
-      "line": null,
-      "league": "European Champions Cup"
-    },
-    {
-      "game_date": "2026-05-02",
-      "game_time": "2026-",
-      "game": "Toulon @ Leinster",
-      "home_team": "Leinster",
-      "away_team": "Toulon",
-      "bet_type": "Away ML",
-      "pick": "Back Leinster",
-      "confidence": 38.7,
-      "edge": 17.5,
-      "tier": "Elite",
-      "odds": 370,
-      "line": null,
-      "league": "European Champions Cup"
-    }
-  ]
+  "bets": []
 }
