@@ -28,11 +28,11 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,WWWWL,LWWWL
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,WLLLL,LWLLW
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,WLWWW,LLLLW
-603052,premiership,premiership-25900,premiership-25908,2026-05-08T18:45Z,0,0,0,0,scheduled,Kingsholm,0,603052,WLLWL,WLLWL
-602656,top14,top14-25952,top14-25965,2026-05-08T18:45Z,0,0,0,0,scheduled,Scotstoun Stadium,0,602656,LLLWW,WWLLL
-602657,top14,top14-25926,top14-25962,2026-05-08T18:45Z,0,0,0,0,scheduled,Affidea Stadium,0,602657,WLLWW,WLLWW
-603189,super_rugby,super_rugby-25936,super_rugby-25932,2026-05-08T07:05Z,0,0,0,0,scheduled,One NZ Stadium,0,603189,LWLLW,WWWLW
-603190,super_rugby,super_rugby-182,super_rugby-25934,2026-05-08T09:35Z,0,0,0,0,scheduled,Suncorp Stadium,0,603190,WLWLL,WWWWW
+603052,premiership,premiership-25900,premiership-25908,2026-05-08T18:45Z,21,15,0,0,final,Kingsholm,0,603052,WLLWL,WLLWL
+602656,top14,top14-25952,top14-25965,2026-05-08T18:45Z,40,17,0,0,final,Scotstoun Stadium,0,602656,LLLWW,WWLLL
+602657,top14,top14-25926,top14-25962,2026-05-08T18:45Z,38,38,0,0,final,Affidea Stadium,0,602657,WLLWW,WLLWW
+603189,super_rugby,super_rugby-25936,super_rugby-25932,2026-05-08T07:05Z,36,20,0,0,final,One NZ Stadium,0,603189,LWLLW,WWWLW
+603190,super_rugby,super_rugby-182,super_rugby-25934,2026-05-08T09:35Z,21,31,0,0,final,Suncorp Stadium,0,603190,WLWLL,WWWWW
 602838,urc,urc-270567,urc-25916,2026-05-09T12:30Z,0,0,0,0,scheduled,Stade du Hameau,0,602838,LWLWL,LLLWL
 602833,urc,urc-25917,urc-25920,2026-05-09T14:35Z,0,0,0,0,scheduled,Stade Marcel Michelin,0,602833,WWLLW,LLLWL
 602834,urc,urc-25912,urc-143737,2026-05-09T14:35Z,0,0,0,0,scheduled,Stade Jean Dauger,0,602834,LLWWL,WLLWW
