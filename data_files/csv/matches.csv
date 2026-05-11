@@ -9,41 +9,41 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 603188,super_rugby,super_rugby-182,super_rugby-25889,2026-05-02T09:35Z,30,21,0,0,final,Suncorp Stadium,0,603188.0,LWLLW,LLWLW
 602927,champions_cup,champions_cup-25924,champions_cup-25986,2026-05-02T14:00Z,29,25,0,0,final,Aviva Stadium,0,602927.0,LWWWW,WWWWL
 602926,champions_cup,champions_cup-143737,champions_cup-25898,2026-05-03T14:00Z,38,26,0,0,final,Stade Matmut-Atlantique,0,602926.0,LLWWW,LWWWW
-602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514.0,WWWWL,LWWWL
-602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515.0,WLLLL,LWLLW
-602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516.0,WLWWW,LLLLW
 603052,premiership,premiership-25900,premiership-25908,2026-05-08T18:45Z,21,15,0,0,final,Kingsholm,0,603052.0,WLLWL,WLLWL
 602656,top14,top14-25952,top14-25965,2026-05-08T18:45Z,40,17,0,0,final,Scotstoun Stadium,0,602656.0,LLLWW,WWLLL
 602657,top14,top14-25926,top14-25962,2026-05-08T18:45Z,38,38,0,0,final,Affidea Stadium,0,602657.0,WLLWW,WLLWW
 603189,super_rugby,super_rugby-25936,super_rugby-25932,2026-05-08T07:05Z,36,20,0,0,final,One NZ Stadium,0,603189.0,LWLLW,WWWLW
 603190,super_rugby,super_rugby-182,super_rugby-25934,2026-05-08T09:35Z,21,31,0,0,final,Suncorp Stadium,0,603190.0,WLWLL,WWWWW
-602838,urc,urc-270567,urc-25916,2026-05-09T12:30Z,0,0,0,0,scheduled,Stade du Hameau,0,602838.0,LWLWL,LLLWL
-602833,urc,urc-25917,urc-25920,2026-05-09T14:35Z,0,0,0,0,scheduled,Stade Marcel Michelin,0,602833.0,WWLLW,LLLWL
-602834,urc,urc-25912,urc-143737,2026-05-09T14:35Z,0,0,0,0,scheduled,Stade Jean Dauger,0,602834.0,LLWWL,WLLWW
-602835,urc,urc-25918,urc-289766,2026-05-09T14:35Z,0,0,0,0,scheduled,Septeo Stadium,0,602835.0,WWWWW,LLLLL
-602839,urc,urc-25921,urc-143736,2026-05-09T14:35Z,0,0,0,0,scheduled,Stade Jean Bouin,0,602839.0,WLLWW,WLLWT
+602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514.0,WWWWL,LWWWL
+602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515.0,WLLLL,LWLLW
+602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516.0,WLWWW,LLLLW
+603053,premiership,premiership-25903,premiership-25907,2026-05-09T14:05Z,41,17,0,0,final,Mattioli Woods Welford Road Stadium,0,603053.0,LWLWW,WWLWW
+603050,premiership,premiership-25899,premiership-25909,2026-05-09T16:30Z,26,41,0,0,final,Ashton Gate,0,603050.0,WWLLL,WWLLL
+602658,top14,top14-25953,top14-167124,2026-05-09T11:45Z,54,19,0,0,final,Loftus Versfeld,0,602658.0,WWLWW,LLLWL
+602659,top14,top14-25961,top14-25927,2026-05-09T14:00Z,46,7,0,0,final,Hollywoodbets Kings Park,0,602659.0,LLLWW,WLLWL
+602660,top14,top14-25968,top14-25966,2026-05-09T16:30Z,27,20,0,0,final,Electric Brewery Field,0,602660.0,LWLLL,LLLWL
+602661,top14,top14-25924,top14-25958,2026-05-09T16:30Z,31,7,0,0,final,Aviva Stadium,0,602661.0,WLWWW,WWWWW
+602662,top14,top14-25967,top14-25951,2026-05-09T18:45Z,15,24,0,0,final,Rodney Parade,0,602662.0,LWLWW,WWLLL
+602663,top14,top14-25923,top14-25925,2026-05-09T18:45Z,26,7,0,0,final,Dexcom Stadium,0,602663.0,LWLWW,WWLLL
+603191,super_rugby,super_rugby-25938,super_rugby-227,2026-05-09T04:35Z,31,26,0,0,final,Forsyth Barr Stadium,0,603191.0,LWLLW,LLWLW
+603192,super_rugby,super_rugby-289319,super_rugby-25939,2026-05-09T07:05Z,17,50,0,0,final,North Harbour Stadium,0,603192.0,LLLLL,WWLWW
+603193,super_rugby,super_rugby-25889,super_rugby-25893,2026-05-09T09:35Z,32,15,0,0,final,GIO Stadium,0,603193.0,LLLWL,WWLWL
+602838,urc,urc-270567,urc-25916,2026-05-09T12:30Z,27,15,0,0,final,Stade du Hameau,0,602838.0,LWLWL,LLLWL
+602833,urc,urc-25917,urc-25920,2026-05-09T14:35Z,45,14,0,0,final,Stade Marcel Michelin,0,602833.0,WWLLW,LLLWL
+602834,urc,urc-25912,urc-143737,2026-05-09T14:35Z,38,40,0,0,final,Stade Jean Dauger,0,602834.0,LLWWL,WLLWW
+602835,urc,urc-25918,urc-289766,2026-05-09T14:35Z,59,7,0,0,final,Septeo Stadium,0,602835.0,WWWWW,LLLLL
+602839,urc,urc-25921,urc-143736,2026-05-09T14:35Z,59,17,0,0,final,Stade Jean Bouin,0,602839.0,WLLWW,WLLWT
 603959,urc,urc-126831,urc-289359,2026-05-09T15:25Z,0,0,0,0,scheduled,,0,603959.0,,
-602837,urc,urc-25986,urc-25922,2026-05-09T19:00Z,0,0,0,0,scheduled,Orange Velodrome,0,602837.0,LWWWW,LWLWW
+602837,urc,urc-25986,urc-25922,2026-05-09T19:00Z,27,51,0,0,final,Orange Velodrome,0,602837.0,LWWWW,LWLWW
 602928,champions_cup,champions_cup-25924,champions_cup-143737,2026-05-23T13:45Z,0,0,0,0,scheduled,San Mames,0,602928.0,WLWWW,WLLWW
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,WWWWL,LWWWL
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,WLLLL,LWLLW
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,WLWWW,LLLLW
-603053,premiership,premiership-25903,premiership-25907,2026-05-09T14:05Z,41,17,0,0,final,Mattioli Woods Welford Road Stadium,0,603053,LWLWW,WWLWW
-603050,premiership,premiership-25899,premiership-25909,2026-05-09T16:30Z,26,41,0,0,final,Ashton Gate,0,603050,WWLLL,WWLLL
-602658,top14,top14-25953,top14-167124,2026-05-09T11:45Z,54,19,0,0,final,Loftus Versfeld,0,602658,WWLWW,LLLWL
-602659,top14,top14-25961,top14-25927,2026-05-09T14:00Z,46,7,0,0,final,Hollywoodbets Kings Park,0,602659,LLLWW,WLLWL
-602660,top14,top14-25968,top14-25966,2026-05-09T16:30Z,27,20,0,0,final,Electric Brewery Field,0,602660,LWLLL,LLLWL
-602661,top14,top14-25924,top14-25958,2026-05-09T16:30Z,31,7,0,0,final,Aviva Stadium,0,602661,WLWWW,WWWWW
-602662,top14,top14-25967,top14-25951,2026-05-09T18:45Z,15,24,0,0,final,Rodney Parade,0,602662,LWLWW,WWLLL
-602663,top14,top14-25923,top14-25925,2026-05-09T18:45Z,26,7,0,0,final,Dexcom Stadium,0,602663,LWLWW,WWLLL
-603191,super_rugby,super_rugby-25938,super_rugby-227,2026-05-09T04:35Z,31,26,0,0,final,Forsyth Barr Stadium,0,603191,LWLLW,LLWLW
-603192,super_rugby,super_rugby-289319,super_rugby-25939,2026-05-09T07:05Z,17,50,0,0,final,North Harbour Stadium,0,603192,LLLLL,WWLWW
-603193,super_rugby,super_rugby-25889,super_rugby-25893,2026-05-09T09:35Z,32,15,0,0,final,GIO Stadium,0,603193,LLLWL,WWLWL
-602838,urc,urc-270567,urc-25916,2026-05-09T12:30Z,27,15,0,0,final,Stade du Hameau,0,602838,LWLWL,LLLWL
-602833,urc,urc-25917,urc-25920,2026-05-09T14:35Z,45,14,0,0,final,Stade Marcel Michelin,0,602833,WWLLW,LLLWL
-602834,urc,urc-25912,urc-143737,2026-05-09T14:35Z,38,40,0,0,final,Stade Jean Dauger,0,602834,LLWWL,WLLWW
-602835,urc,urc-25918,urc-289766,2026-05-09T14:35Z,59,7,0,0,final,Septeo Stadium,0,602835,WWWWW,LLLLL
-602839,urc,urc-25921,urc-143736,2026-05-09T14:35Z,59,17,0,0,final,Stade Jean Bouin,0,602839,WLLWW,WLLWT
-603959,urc,urc-126831,urc-289359,2026-05-09T15:25Z,0,0,0,0,scheduled,,0,603959,,
-602837,urc,urc-25986,urc-25922,2026-05-09T19:00Z,27,51,0,0,final,Orange Velodrome,0,602837,LWWWW,LWLWW
-602928,champions_cup,champions_cup-25924,champions_cup-143737,2026-05-23T13:45Z,0,0,0,0,scheduled,San Mames,0,602928,WLWWW,WLLWW
+603054,premiership,premiership-25906,premiership-25901,2026-05-10T14:00Z,17,76,0,0,final,Kingston Park,0,603054,LLLLL,LLLWL
+603051,premiership,premiership-116227,premiership-25898,2026-05-10T14:30Z,35,12,0,0,final,Sandy Park,0,603051,LLLWW,LLWWW
+602664,top14,top14-25965,top14-25962,2026-05-15T18:45Z,0,0,0,0,scheduled,Cardiff Arms Park,0,602664,LWWLL,TWLLW
+602665,top14,top14-25926,top14-25952,2026-05-15T18:45Z,0,0,0,0,scheduled,Affidea Stadium,0,602665,TWLLW,WLLLW
+602666,top14,top14-25951,top14-25923,2026-05-15T18:45Z,0,0,0,0,scheduled,Hive Stadium,0,602666,WWWLL,WLWLW
+603194,super_rugby,super_rugby-25934,super_rugby-25938,2026-05-15T07:05Z,0,0,0,0,scheduled,FMG Stadium Waikato,0,603194,WWWWW,WLWLL
+602836,urc,urc-99855,urc-119318,2026-05-10T19:05Z,24,26,0,0,final,Paris La Defense Arena,0,602836,WWLWL,WWLWL
+602928,champions_cup,champions_cup-25924,champions_cup-143737,2026-05-23T13:45Z,0,0,0,0,scheduled,San Mames,0,602928,WWLWW,WWLLW
