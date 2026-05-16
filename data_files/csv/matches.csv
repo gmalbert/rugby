@@ -53,11 +53,11 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,WWWWL,LWWWL
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,WLLLL,LWLLW
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,WLWWW,LLLLW
-603057,premiership,premiership-25907,premiership-25899,2026-05-15T18:45Z,0,0,0,0,scheduled,cinch Stadium at Franklin's Gardens,0,603057,LWWLW,LWWLL
-602664,top14,top14-25965,top14-25962,2026-05-15T18:45Z,0,0,0,0,scheduled,Cardiff Arms Park,0,602664,LWWLL,TWLLW
-602665,top14,top14-25926,top14-25952,2026-05-15T18:45Z,0,0,0,0,scheduled,Affidea Stadium,0,602665,TWLLW,WLLLW
-602666,top14,top14-25951,top14-25923,2026-05-15T18:45Z,0,0,0,0,scheduled,Hive Stadium,0,602666,WWWLL,WLWLW
-603194,super_rugby,super_rugby-25934,super_rugby-25938,2026-05-15T07:05Z,0,0,0,0,scheduled,FMG Stadium Waikato,0,603194,WWWWW,WLWLL
+603057,premiership,premiership-25907,premiership-25899,2026-05-15T18:45Z,94,33,0,0,final,cinch Stadium at Franklin's Gardens,0,603057,LWWLW,LWWLL
+602664,top14,top14-25965,top14-25962,2026-05-15T18:45Z,22,16,0,0,final,Cardiff Arms Park,0,602664,LWWLL,TWLLW
+602665,top14,top14-25926,top14-25952,2026-05-15T18:45Z,22,26,0,0,final,Affidea Stadium,0,602665,TWLLW,WLLLW
+602666,top14,top14-25951,top14-25923,2026-05-15T18:45Z,5,26,0,0,final,Hive Stadium,0,602666,WWWLL,WLWLW
+603194,super_rugby,super_rugby-25934,super_rugby-25938,2026-05-15T07:05Z,42,12,0,0,final,FMG Stadium Waikato,0,603194,WWWWW,WLWLL
 602843,urc,urc-270567,urc-25917,2026-05-16T12:30Z,0,0,0,0,scheduled,Stade du Hameau,0,602843,WLWLW,WWWLL
 602840,urc,urc-25916,urc-25918,2026-05-16T14:35Z,0,0,0,0,scheduled,Stade Pierre Fabre,0,602840,LLLLW,WWWWW
 602841,urc,urc-143736,urc-25912,2026-05-16T14:35Z,0,0,0,0,scheduled,Matmut Stadium de Gerland,0,602841,LWLLW,LLLWW
