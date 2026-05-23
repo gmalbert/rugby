@@ -77,8 +77,8 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,WLWWW,LLLLW
 603060,premiership,premiership-25899,premiership-25898,2026-05-29T18:45Z,0,0,0,0,scheduled,Ashton Gate,0,603060,LLWWL,WLLLW
 602672,top14,top14-25952,top14-25923,2026-05-29T18:45Z,0,0,0,0,scheduled,Scotstoun Stadium,0,602672,WWLLL,WWLWL
-603198,super_rugby,super_rugby-25936,super_rugby-25934,2026-05-22T07:05Z,0,0,0,0,scheduled,One NZ Stadium,0,603198,WLWLL,WWWWW
-603199,super_rugby,super_rugby-227,super_rugby-25889,2026-05-22T09:35Z,0,0,0,0,scheduled,Allianz Stadium,0,603199,WLLLW,WLLLW
+603198,super_rugby,super_rugby-25936,super_rugby-25934,2026-05-22T07:05Z,36,32,0,0,final,One NZ Stadium,0,603198,WLWLL,WWWWW
+603199,super_rugby,super_rugby-227,super_rugby-25889,2026-05-22T09:35Z,14,21,0,0,final,Allianz Stadium,0,603199,WLLLW,WLLLW
 602850,urc,urc-25921,urc-25912,2026-05-30T12:30Z,0,0,0,0,scheduled,Stade Jean Bouin,0,602850,WWWLL,LLLLW
 602851,urc,urc-25922,urc-143736,2026-05-30T12:30Z,0,0,0,0,scheduled,Stade Ernest-Wallon,0,602851,LWLWL,WLWLL
 602852,urc,urc-289766,urc-119318,2026-05-30T12:30Z,0,0,0,0,scheduled,Stade Sapiac,0,602852,LLLLL,WWWWL
