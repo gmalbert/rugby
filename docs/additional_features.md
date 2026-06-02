@@ -131,7 +131,7 @@ def player_radar(player_a_id: str, player_b_id: str) -> None:
         label_a=player_a_id,
         label_b=player_b_id,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 ```
 
 ---
