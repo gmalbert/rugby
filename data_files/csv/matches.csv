@@ -107,13 +107,14 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 603071,premiership,premiership-25898,premiership-116227,2026-06-13T14:00Z,26,27,0,0,final,Recreation Ground,0,603071.0,WLWLL,WWLWL
 603211,super_rugby,super_rugby-25939,super_rugby-25932,2026-06-13T07:05Z,57,21,0,0,final,Hnry Stadium,0,603211.0,WLWWW,LLLLW
 602861,urc,urc-270567,urc-99855,2026-06-13T19:05Z,31,33,0,0,final,Stade du Hameau,0,602861.0,WLWWL,WWWLW
+602862,urc,urc-25921,urc-119318,2026-06-14T19:05Z,45,5,0,0,final,Stade Jean Bouin,0,602862.0,LWWWW,WWWWW
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514.0,WWWWL,LWWWL
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515.0,WLLLL,LWLLW
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516.0,WLWWW,LLLLW
 603072,premiership,premiership-25907,premiership-116227,2026-06-20T14:00Z,0,0,0,0,scheduled,Allianz Stadium,0,603072.0,WLWWL,WWWLW
 602678,top14,top14-25924,top14-25953,2026-06-19T18:30Z,0,0,0,0,scheduled,Croke Park,0,602678.0,WWLWW,WWWWW
 603213,super_rugby,super_rugby-25939,super_rugby-25934,2026-06-20T07:05Z,0,0,0,0,scheduled,Hnry Stadium,0,603213.0,WWLWW,WWWLW
-602862,urc,urc-25921,urc-119318,2026-06-14T19:05Z,45,5,0,0,final,Stade Jean Bouin,0,602862.0,LWWWW,WWWWW
+602863,urc,urc-25922,urc-99855,2026-06-19T19:05Z,0,0,0,0,scheduled,Orange Velodrome,0,602863.0,LWLWL,WWWWL
 602928,champions_cup,champions_cup-25924,champions_cup-143737,2026-05-23T13:45Z,19,41,0,0,final,San Mames,0,602928.0,WWLWW,LLWWW
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,WWWWL,LWWWL
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,WLLLL,LWLLW
