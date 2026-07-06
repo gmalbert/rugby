@@ -121,9 +121,9 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 603213,super_rugby,super_rugby-25939,super_rugby-25934,2026-06-20T07:05Z,60,5,0,0,final,Hnry Stadium,0,603213.0,WWWLW,LWWWL
 602865,urc,urc-25922,urc-25918,2026-06-27T19:00Z,28,20,0,0,final,Stade de France,0,602865.0,WWLWL,LWWWW
 602928,champions_cup,champions_cup-25924,champions_cup-143737,2026-05-23T13:45Z,19,41,0,0,final,San Mames,0,602928.0,WWWLW,LLWWW
-602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,WWWWL,LWWWL
-602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,WLLLL,LWLLW
-602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,WLWWW,LLLLW
+602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,WWWWW,WLWWW
+602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,WWLLL,LLWLL
+602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,LWLWW,LLLLL
 603072,premiership,premiership-25907,premiership-116227,2026-06-20T14:00Z,26,17,0,0,final,Allianz Stadium,0,603072,WWLWW,LWWWL
 604032,top14,top14-25927,top14-25967,2026-09-25T18:45Z,0,0,0,0,scheduled,Stadio Comunale di Monigo,0,604032,LLWLL,TLLWL
 604033,top14,top14-25923,top14-25962,2026-09-25T18:45Z,0,0,0,0,scheduled,Dexcom Stadium,0,604033,LWWLW,LWLTW
