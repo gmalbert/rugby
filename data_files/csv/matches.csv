@@ -112,6 +112,7 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 602863,urc,urc-25922,urc-99855,2026-06-19T19:05Z,71,17,0,0,final,Orange Velodrome,0,602863.0,LWLWL,WWWWL
 602864,urc,urc-25918,urc-25921,2026-06-20T19:05Z,25,15,0,0,final,Orange Velodrome,0,602864.0,WWWWW,WLWWW
 602928,champions_cup,champions_cup-25924,champions_cup-143737,2026-05-23T13:45Z,19,41,0,0,final,San Mames,0,602928.0,WWWLW,LLWWW
+602865,urc,urc-25922,urc-25918,2026-06-27T19:00Z,28,20,0,0,final,Stade de France,0,602865.0,WWLWL,LWWWW
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514.0,WWWWW,LWLWW
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515.0,LWWLL,LLLWL
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516.0,WLWLW,WLLLL
@@ -120,7 +121,12 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 604033,top14,top14-25923,top14-25962,2026-09-25T18:45Z,0,0,0,0,scheduled,Dexcom Stadium,0,604033.0,LWWLW,LWLTW
 604034,top14,top14-25926,top14-25951,2026-09-25T18:45Z,0,0,0,0,scheduled,Affidea Stadium,0,604034.0,LLTWL,LWWWL
 603213,super_rugby,super_rugby-25939,super_rugby-25934,2026-06-20T07:05Z,60,5,0,0,final,Hnry Stadium,0,603213.0,WWWLW,LWWWL
-602865,urc,urc-25922,urc-25918,2026-06-27T19:00Z,28,20,0,0,final,Stade de France,0,602865.0,WWLWL,LWWWW
+604360,urc,urc-25912,urc-25986,2026-09-05T17:00Z,0,0,0,0,scheduled,Stade Jean Dauger,0,604360.0,WLLLL,LWLLL
+604361,urc,urc-25916,urc-289337,2026-09-05T17:00Z,0,0,0,0,scheduled,Stade Pierre Fabre,0,604361.0,WLLLL,LLLLW
+604362,urc,urc-143736,urc-25917,2026-09-05T17:00Z,0,0,0,0,scheduled,Stade Jean Bouin,0,604362.0,LLWLW,WLLWW
+604363,urc,urc-25918,urc-270567,2026-09-05T17:00Z,0,0,0,0,scheduled,Septeo Stadium,0,604363.0,LWWWW,LWLWW
+604364,urc,urc-25921,urc-25920,2026-09-05T17:00Z,0,0,0,0,scheduled,Stade Jean Bouin,0,604364.0,LWLWW,LWLLL
+604365,urc,urc-143737,urc-99855,2026-09-05T19:15Z,0,0,0,0,scheduled,Stade Chaban-Delmas,0,604365.0,LLWWW,LWWWW
 604246,champions_cup,champions_cup-25900,champions_cup-143737,2026-10-16T19:00Z,0,0,0,0,scheduled,Kingsholm,0,604246.0,WLLWW,LLWWW
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,WWWWW,LWLWW
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,LWWLL,LLLWL
