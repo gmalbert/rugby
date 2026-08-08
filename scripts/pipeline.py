@@ -419,10 +419,15 @@ def main() -> None:
 
     # Matches (ESPN + World Rugby)
     matches_wr  = _run_worldrugby()
-    all_matches = pd.concat(
-        [f for f in [matches_espn, matches_wr] if not f.empty],
-        ignore_index=True,
-    )
+    match_frames = [f for f in [matches_espn, matches_wr] if not f.empty]
+    if match_frames:
+        all_matches = pd.concat(match_frames, ignore_index=True)
+    else:
+        # A provider outage should not abort the nightly job.  _upsert_csv
+        # will preserve any previously collected matches when no new rows
+        # are available.
+        logger.warning("No match data returned by ESPN or World Rugby")
+        all_matches = pd.DataFrame()
     # Deduplicate within the batch before upsert (same event can come from multiple scrapers)
     if not all_matches.empty:
         all_matches = all_matches.drop_duplicates(subset=["id"], keep="last")
