@@ -133,16 +133,19 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,LWWWW,WLWLW
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,LLWWL,LLLLW
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,WWLWL,WWLLL
-604614,premiership,premiership-25907,premiership-25906,2026-09-25T18:45Z,0,0,0,0,scheduled,cinch Stadium at Franklin's Gardens,0,604614,WWLWW,LWLLL
-604616,premiership,premiership-25901,premiership-25898,2026-09-25T18:45Z,0,0,0,0,scheduled,Twickenham Stoop,0,604616,WLWWL,LWLWL
-604032,top14,top14-25927,top14-25967,2026-09-25T18:45Z,0,0,0,0,scheduled,Stadio Comunale di Monigo,0,604032,LLWLL,TLLWL
-604033,top14,top14-25923,top14-25962,2026-09-25T18:45Z,0,0,0,0,scheduled,Dexcom Stadium,0,604033,LWWLW,LWLTW
-604034,top14,top14-25926,top14-25951,2026-09-25T18:45Z,0,0,0,0,scheduled,Affidea Stadium,0,604034,LLTWL,LWWWL
-603213,super_rugby,super_rugby-25939,super_rugby-25934,2026-06-20T07:05Z,60,5,0,0,final,Hnry Stadium,0,603213,WWWLW,LWWWL
-604360,urc,urc-25912,urc-25986,2026-09-05T17:00Z,0,0,0,0,scheduled,Stade Jean Dauger,0,604360,WLLLL,LWLLL
-604361,urc,urc-25916,urc-289337,2026-09-05T17:00Z,0,0,0,0,scheduled,Stade Pierre Fabre,0,604361,WLLLL,LLLLW
-604362,urc,urc-143736,urc-25917,2026-09-05T17:00Z,0,0,0,0,scheduled,Matmut Stadium de Gerland,0,604362,LLWLW,WLLWW
-604363,urc,urc-25918,urc-270567,2026-09-05T17:00Z,0,0,0,0,scheduled,Septeo Stadium,0,604363,LWWWW,LWLWW
-604364,urc,urc-25921,urc-25920,2026-09-05T17:00Z,0,0,0,0,scheduled,Stade Jean Bouin,0,604364,LWLWW,LWLLL
-604365,urc,urc-143737,urc-99855,2026-09-05T19:15Z,0,0,0,0,scheduled,Stade Chaban-Delmas,0,604365,LLWWW,LWWWW
-604246,champions_cup,champions_cup-25900,champions_cup-143737,2026-10-16T19:00Z,0,0,0,0,scheduled,Kingsholm,0,604246,WLLWW,LLWWW
+604619,premiership,premiership-25898,premiership-116227,2026-10-02T18:45Z,0,0,0,0,scheduled,Recreation Ground,0,604619,WLLWL,LWLWW
+604040,top14,top14-25965,top14-167124,2026-10-02T18:45Z,0,0,0,0,scheduled,Cardiff Arms Park,0,604040,WLWLW,LLLLL
+604041,top14,top14-25951,top14-25962,2026-10-02T18:45Z,0,0,0,0,scheduled,Hive Stadium,0,604041,WLWWW,WLWLT
+604042,top14,top14-25927,top14-25923,2026-10-02T18:45Z,0,0,0,0,scheduled,Stadio Comunale di Monigo,0,604042,TLLWL,LLWWL
+604758,super_rugby,super_rugby-25936,super_rugby-182,2027-02-12T06:35Z,0,0,0,0,scheduled,One NZ Stadium,0,604758,LWWWW,LWWLL
+604759,super_rugby,super_rugby-25889,super_rugby-227,2027-02-12T08:45Z,0,0,0,0,scheduled,GIO Stadium,0,604759,LLWWL,LLWLL
+604760,super_rugby,super_rugby-289338,super_rugby-25938,2027-02-13T03:35Z,0,0,0,0,scheduled,,0,604760,LLLWL,LLWLW
+604855,urc,urc-289852,urc-126831,2026-10-03T12:20Z,0,0,0,0,scheduled,,0,604855,,
+604388,urc,urc-143737,urc-143736,2026-10-03T12:30Z,0,0,0,0,scheduled,Stade Chaban-Delmas,0,604388,LWLWL,LWWWL
+604389,urc,urc-25912,urc-25921,2026-10-03T14:35Z,0,0,0,0,scheduled,Stade Jean Dauger,0,604389,WWLWW,WLLWL
+604390,urc,urc-289337,urc-270567,2026-10-03T14:35Z,0,0,0,0,scheduled,Stade de la Rabine,0,604390,LLLLL,WLWWL
+604391,urc,urc-119318,urc-25917,2026-10-03T14:35Z,0,0,0,0,scheduled,Stade Marcel-Deflandre,0,604391,LLWWL,WLWLW
+604392,urc,urc-99855,urc-25920,2026-10-03T14:35Z,0,0,0,0,scheduled,Stade Dominique Duvauchelle,0,604392,LWLLL,WLWLL
+604393,urc,urc-99855,urc-25920,2026-10-03T14:35Z,0,0,0,0,scheduled,Paris La Defense Arena,0,604393,LWLLL,WLWLL
+604394,urc,urc-25916,urc-25922,2026-10-03T19:00Z,0,0,0,0,scheduled,Stade Pierre Fabre,0,604394,LWLWW,WWWLW
+604246,champions_cup,champions_cup-25900,champions_cup-143737,2026-10-16T19:00Z,0,0,0,0,scheduled,Kingsholm,0,604246,WWLWL,LWLWL
