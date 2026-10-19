@@ -168,46 +168,49 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 604627,premiership,premiership-25908,premiership-25901,2026-10-11T14:00Z,28,24,0,0,final,CorpAcq Stadium,0,604627.0,WWLLW,LLLWW
 604628,premiership,premiership-116227,premiership-25906,2026-10-11T14:00Z,34,28,0,0,final,Sandy Park,0,604628.0,WLLWL,LLLWL
 604402,urc,urc-25922,urc-25912,2026-10-11T19:05Z,45,34,0,0,final,Stade Ernest-Wallon,0,604402.0,WWWWW,LWWWL
+604246,champions_cup,champions_cup-25900,champions_cup-143737,2026-10-16T19:00Z,36,36,0,0,final,Kingsholm,0,604246.0,TLWWW,TWWLW
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514.0,LWWWW,WLWLW
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515.0,LLWWL,LLLLW
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516.0,WWLWL,WWLLL
-604629,premiership,premiership-25900,premiership-25898,2026-10-23T18:45Z,0,0,0,0,scheduled,Kingsholm,0,604629.0,TLWWW,LWWLL
-604632,premiership,premiership-25906,premiership-25908,2026-10-23T18:45Z,0,0,0,0,scheduled,Kingston Park,0,604632.0,LLLWL,WWLLW
-604056,top14,top14-25965,top14-25961,2026-10-23T18:45Z,0,0,0,0,scheduled,Cardiff Arms Park,0,604056.0,LWWLW,LWWWW
-604057,top14,top14-25923,top14-167124,2026-10-23T18:45Z,0,0,0,0,scheduled,Dexcom Stadium,0,604057.0,LWLLW,LLLLL
-604058,top14,top14-25951,top14-25958,2026-10-23T18:45Z,0,0,0,0,scheduled,Hive Stadium,0,604058.0,LWWWL,LWWLL
+604629,premiership,premiership-25900,premiership-25898,2026-10-23T18:45Z,0,0,0,0,scheduled,Kingsholm,0,604629.0,TLWWW,LLWWL
+604632,premiership,premiership-25906,premiership-25908,2026-10-23T18:45Z,0,0,0,0,scheduled,Kingston Park,0,604632.0,LLLLW,LWWLL
+604056,top14,top14-25965,top14-25961,2026-10-23T18:45Z,0,0,0,0,scheduled,Cardiff Arms Park,0,604056.0,LWWLW,WLWWW
+604057,top14,top14-25923,top14-167124,2026-10-23T18:45Z,0,0,0,0,scheduled,Dexcom Stadium,0,604057.0,WLWLL,LLLLL
+604058,top14,top14-25951,top14-25958,2026-10-23T18:45Z,0,0,0,0,scheduled,Hive Stadium,0,604058.0,LWWWL,LLWWL
 604758,super_rugby,super_rugby-25936,super_rugby-182,2027-02-12T06:35Z,0,0,0,0,scheduled,One NZ Stadium,0,604758.0,LWWWW,LWWLL
 604759,super_rugby,super_rugby-25889,super_rugby-227,2027-02-12T08:45Z,0,0,0,0,scheduled,GIO Stadium,0,604759.0,LLWWL,LLWLL
 604760,super_rugby,super_rugby-289338,super_rugby-25938,2027-02-13T03:35Z,0,0,0,0,scheduled,,0,604760.0,LLLWL,LLWLW
-604404,urc,urc-289337,urc-25917,2026-10-24T12:30Z,0,0,0,0,scheduled,Stade de la Rabine,0,604404.0,LLLLL,LLWLW
-604403,urc,urc-25912,urc-143736,2026-10-24T14:35Z,0,0,0,0,scheduled,Stade Jean Dauger,0,604403.0,LWWWL,LLLWW
-604405,urc,urc-25916,urc-25921,2026-10-24T14:35Z,0,0,0,0,scheduled,Stade Pierre Fabre,0,604405.0,LLLWL,WLWLL
-604407,urc,urc-99855,urc-25918,2026-10-24T14:35Z,0,0,0,0,scheduled,MMArena,0,604407.0,LWLWL,LWLWW
+604404,urc,urc-289337,urc-25917,2026-10-24T12:30Z,0,0,0,0,scheduled,Stade de la Rabine,0,604404.0,LLLLL,LLLWL
+604403,urc,urc-25912,urc-143736,2026-10-24T14:35Z,0,0,0,0,scheduled,Stade Jean Dauger,0,604403.0,LWWWL,LLLLW
+604405,urc,urc-25916,urc-25921,2026-10-24T14:35Z,0,0,0,0,scheduled,Stade Pierre Fabre,0,604405.0,LLLWL,LWLWL
+604407,urc,urc-99855,urc-25918,2026-10-24T14:35Z,0,0,0,0,scheduled,MMArena,0,604407.0,LLWLW,WLWLW
 604409,urc,urc-25922,urc-25920,2026-10-24T14:35Z,0,0,0,0,scheduled,Stade Ernest-Wallon,0,604409.0,WWWWW,LWLWL
 604408,urc,urc-25986,urc-270567,2026-10-24T19:00Z,0,0,0,0,scheduled,Stade Mayol,0,604408.0,WWLWL,WWWLW
-604246,champions_cup,champions_cup-25900,champions_cup-143737,2026-10-16T19:00Z,36,36,0,0,final,Kingsholm,0,604246.0,TLWWW,TWWLW
+604247,champions_cup,champions_cup-25908,champions_cup-25952,2026-10-17T12:00Z,27,47,0,0,final,CorpAcq Stadium,0,604247.0,LWWLL,WWTWL
+604248,champions_cup,champions_cup-25953,champions_cup-25921,2026-10-17T12:00Z,56,20,0,0,final,Loftus Versfeld,0,604248.0,WWLWL,LWLWL
+604249,champions_cup,champions_cup-25917,champions_cup-25924,2026-10-17T14:15Z,23,48,0,0,final,Stade Marcel Michelin,0,604249.0,LLLWL,WWLLW
+604250,champions_cup,champions_cup-25962,champions_cup-25899,2026-10-17T14:15Z,49,12,0,0,final,DHL Stadium,0,604250.0,WWLWL,LLWWL
+604251,champions_cup,champions_cup-25923,champions_cup-25909,2026-10-17T16:30Z,45,36,0,0,final,Dexcom Stadium,0,604251.0,WLWLL,LWLWW
+604252,champions_cup,champions_cup-119318,champions_cup-25958,2026-10-17T16:30Z,31,14,0,0,final,Stade Marcel-Deflandre,0,604252.0,WWWLL,LLWWL
+604253,champions_cup,champions_cup-25925,champions_cup-99855,2026-10-17T19:00Z,33,25,0,0,final,Pairc Ui Chaoimh,0,604253.0,WTWLL,LLWLW
+604254,champions_cup,champions_cup-25898,champions_cup-25918,2026-10-17T19:00Z,14,32,0,0,final,Recreation Ground,0,604254.0,LLWWL,WLWLW
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,LWWWW,WLWLW
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,LLWWL,LLLLW
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,WWLWL,WWLLL
 604629,premiership,premiership-25900,premiership-25898,2026-10-23T18:45Z,0,0,0,0,scheduled,Kingsholm,0,604629,TLWWW,LLWWL
 604632,premiership,premiership-25906,premiership-25908,2026-10-23T18:45Z,0,0,0,0,scheduled,Kingston Park,0,604632,LLLLW,LWWLL
-604056,top14,top14-25965,top14-25961,2026-10-23T18:45Z,0,0,0,0,scheduled,Cardiff Arms Park,0,604056,LWWLW,WLWWW
+604056,top14,top14-25965,top14-25961,2026-10-23T18:45Z,0,0,0,0,scheduled,Cardiff Arms Park,0,604056,LLWWL,WLWWW
 604057,top14,top14-25923,top14-167124,2026-10-23T18:45Z,0,0,0,0,scheduled,Dexcom Stadium,0,604057,WLWLL,LLLLL
 604058,top14,top14-25951,top14-25958,2026-10-23T18:45Z,0,0,0,0,scheduled,Hive Stadium,0,604058,LWWWL,LLWWL
 604758,super_rugby,super_rugby-25936,super_rugby-182,2027-02-12T06:35Z,0,0,0,0,scheduled,One NZ Stadium,0,604758,LWWWW,LWWLL
 604759,super_rugby,super_rugby-25889,super_rugby-227,2027-02-12T08:45Z,0,0,0,0,scheduled,GIO Stadium,0,604759,LLWWL,LLWLL
 604760,super_rugby,super_rugby-289338,super_rugby-25938,2027-02-13T03:35Z,0,0,0,0,scheduled,,0,604760,LLLWL,LLWLW
 604404,urc,urc-289337,urc-25917,2026-10-24T12:30Z,0,0,0,0,scheduled,Stade de la Rabine,0,604404,LLLLL,LLLWL
-604403,urc,urc-25912,urc-143736,2026-10-24T14:35Z,0,0,0,0,scheduled,Stade Jean Dauger,0,604403,LWWWL,LLLLW
-604405,urc,urc-25916,urc-25921,2026-10-24T14:35Z,0,0,0,0,scheduled,Stade Pierre Fabre,0,604405,LLLWL,LWLWL
+604403,urc,urc-25912,urc-143736,2026-10-24T14:35Z,0,0,0,0,scheduled,Stade Jean Dauger,0,604403,WLWWW,LLLLW
+604405,urc,urc-25916,urc-25921,2026-10-24T14:35Z,0,0,0,0,scheduled,Stade Pierre Fabre,0,604405,WLLLW,LWLWL
 604407,urc,urc-99855,urc-25918,2026-10-24T14:35Z,0,0,0,0,scheduled,MMArena,0,604407,LLWLW,WLWLW
 604409,urc,urc-25922,urc-25920,2026-10-24T14:35Z,0,0,0,0,scheduled,Stade Ernest-Wallon,0,604409,WWWWW,LWLWL
-604408,urc,urc-25986,urc-270567,2026-10-24T19:00Z,0,0,0,0,scheduled,Stade Mayol,0,604408,WWLWL,WWWLW
-604247,champions_cup,champions_cup-25908,champions_cup-25952,2026-10-17T12:00Z,27,47,0,0,final,CorpAcq Stadium,0,604247,LWWLL,WWTWL
-604248,champions_cup,champions_cup-25953,champions_cup-25921,2026-10-17T12:00Z,56,20,0,0,final,Loftus Versfeld,0,604248,WWLWL,LWLWL
-604249,champions_cup,champions_cup-25917,champions_cup-25924,2026-10-17T14:15Z,23,48,0,0,final,Stade Marcel Michelin,0,604249,LLLWL,WWLLW
-604250,champions_cup,champions_cup-25962,champions_cup-25899,2026-10-17T14:15Z,49,12,0,0,final,DHL Stadium,0,604250,WWLWL,LLWWL
-604251,champions_cup,champions_cup-25923,champions_cup-25909,2026-10-17T16:30Z,45,36,0,0,final,Dexcom Stadium,0,604251,WLWLL,LWLWW
-604252,champions_cup,champions_cup-119318,champions_cup-25958,2026-10-17T16:30Z,31,14,0,0,final,Stade Marcel-Deflandre,0,604252,WWWLL,LLWWL
-604253,champions_cup,champions_cup-25925,champions_cup-99855,2026-10-17T19:00Z,33,25,0,0,final,Pairc Ui Chaoimh,0,604253,WTWLL,LLWLW
-604254,champions_cup,champions_cup-25898,champions_cup-25918,2026-10-17T19:00Z,14,32,0,0,final,Recreation Ground,0,604254,LLWWL,WLWLW
+604408,urc,urc-25986,urc-270567,2026-10-24T19:00Z,0,0,0,0,scheduled,Stade Mayol,0,604408,WWLWL,WWWWL
+604255,champions_cup,champions_cup-270567,champions_cup-25903,2026-10-18T12:00Z,41,17,0,0,final,Stade du Hameau,0,604255,WWWWL,LWWLL
+604256,champions_cup,champions_cup-25922,champions_cup-116227,2026-10-18T14:15Z,43,40,0,0,final,Stadium de Toulouse,0,604256,WWWWW,LWLLW
+604257,champions_cup,champions_cup-25907,champions_cup-25965,2026-10-18T16:30Z,28,12,0,0,final,cinch Stadium at Franklin's Gardens,0,604257,WWLWL,LLWWL
