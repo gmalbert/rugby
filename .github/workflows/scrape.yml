@@ -2,8 +2,8 @@ name: Nightly Data Refresh
 
 on:
   schedule:
-    - cron: "0 3 * * *"   # 3 AM UTC daily
-  workflow_dispatch:        # manual trigger
+    - cron: "0 3 * * *" # 3 AM UTC daily
+  workflow_dispatch: # manual trigger
 
 permissions:
   contents: write
@@ -28,7 +28,8 @@ jobs:
       - name: Run pipeline (scrape + precompute models)
         run: python scripts/pipeline.py
         env:
-          ODDS_API_KEY:        ${{ secrets.ODDS_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDS_API_IO_KEY: ${{ secrets.ODDS_API_IO_KEY }}
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
 
       - name: Export best bets for Sports Picks Grid
@@ -37,10 +38,24 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}
 
+      - name: Export public React data
+        run: python -m scripts.export_web_data
+        env:
+          PYTHONHASHSEED: "0"
+
       - name: Commit updated data files
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name  "github-actions[bot]"
-          git add data_files/csv/ data_files/parquet/ data_files/best_bets_today.json
-          git diff --staged --quiet || git commit -m "chore: nightly data refresh $(date -u +'%Y-%m-%d')"
+          git add data_files/csv/ data_files/parquet/ data_files/best_bets_today.json public/data/ public/logo.png
+          git diff --staged --quiet || git commit -m "chore: nightly data refresh $(date -u +'%Y-%m-%d')" -m "## Data refresh
+
+          - Refresh rugby fixtures, results, odds snapshots, player statistics, and model outputs.
+          - Export the public React snapshot and theme palettes for Cloudflare hosting.
+          - Keep the Sports Picks Grid best-bets feed in sync."
           git push
+
+  deploy:
+    needs: scrape
+    uses: ./.github/workflows/cloudflare.yml
+    secrets: inherit
