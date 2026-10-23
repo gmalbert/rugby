@@ -87,6 +87,7 @@ function Lab() {
           <Season />
         )}
       </div>
+      <Footer />
     </>
   );
 }
@@ -562,7 +563,7 @@ function Tournament() {
   return (
     <>
       <Sidebar>
-        <h3>Tournament Simulator</h3>
+        <h2>Tournament Simulator</h2>
         <Select
           label="Competition"
           value={league}
@@ -616,13 +617,11 @@ function Tournament() {
           ))}
         </div>
         <Table
-          rows={selected
-            .filter(Boolean)
-            .map((id, i) => ({
-              Seed: i + 1,
-              Team: tname(id),
-              "Elo Rating": Math.round(ratings[id] ?? 1500),
-            }))}
+          rows={selected.filter(Boolean).map((id, i) => ({
+            Seed: i + 1,
+            Team: tname(id),
+            "Elo Rating": Math.round(ratings[id] ?? 1500),
+          }))}
         />
         {(!valid || selected.some((id) => !id)) && (
           <Info warning>Select exactly {size} distinct teams to continue.</Info>

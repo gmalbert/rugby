@@ -212,6 +212,23 @@ hr {
 .columns.three {
   grid-template-columns: repeat(3, 1fr);
 }
+.columns.four {
+  grid-template-columns: repeat(4, 1fr);
+}
+.team-form-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+}
+.team-form-strip .form-item {
+  display: inline-flex;
+  align-items: baseline;
+  padding: 0;
+}
+.team-form-strip small {
+  color: #94a3b8;
+  margin-left: 4px;
+}
 .columns > * {
   min-width: 0;
 }
@@ -259,6 +276,16 @@ hr {
   padding: 9px 12px;
   margin-top: 5px;
   min-height: 40px;
+}
+.multi-summary {
+  justify-content: space-between;
+  gap: 8px;
+  text-align: left;
+}
+.multi-summary > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .field input[type="range"] {
   padding: 0;
@@ -600,7 +627,8 @@ footer img {
   }
   .home-columns,
   .columns,
-  .columns.three {
+  .columns.three,
+  .columns.four {
     grid-template-columns: 1fr;
   }
   .home-columns > section:first-child {
@@ -646,7 +674,7 @@ aside {
   left: 300px;
 }
 main {
-  padding: 96px 80px 160px;
+  padding: 138px 80px 160px;
 }
 .home-page {
   padding-top: 138px;
@@ -654,6 +682,14 @@ main {
 h1 {
   padding: 20px 0 16px;
   letter-spacing: normal;
+}
+h2 {
+  padding: 16px 0;
+  margin: 0;
+}
+aside h2 {
+  font-size: 28px;
+  padding: 16px 0 6px;
 }
 h3 {
   padding: 12px 0 16px;
@@ -675,7 +711,7 @@ nav a {
   gap: 8px;
 }
 nav a[aria-current="page"] {
-  background: #5a9e1055;
+  background: color-mix(in srgb, var(--sidebar-text) 14%, transparent);
 }
 .nav-heading {
   padding: 20px 0 8px;
@@ -714,23 +750,44 @@ nav a[aria-current="page"] {
 .home-columns .table-scroll {
   max-height: 388px !important;
 }
-.home-columns table {
+.table-shell:not(.plain) table {
   background: #f8fff4;
   color: #0d1f05;
 }
-.home-columns th {
+.table-shell:not(.plain) th {
   background: #f8f9fa;
   color: #70766f;
 }
-.home-columns td {
+.table-shell:not(.plain) td {
   background: #f8fff4;
   color: #0d1f05;
 }
-.home-columns th,
-.home-columns td {
+.table-shell:not(.plain) th,
+.table-shell:not(.plain) td {
   height: 35px;
   border: 1px solid #e2e5e0;
   font-size: 13px;
+}
+.table-shell:not(.plain) {
+  border-color: #e2e5e0;
+}
+.table-shell:not(.plain) th,
+.table-shell:not(.plain) td {
+  min-width: 50px;
+}
+.table-shell td.numeric {
+  text-align: right;
+}
+.table-shell tr.back td {
+  background: #d4edda;
+}
+.table-shell tr.fade td {
+  background: #f8d7da;
+}
+.table-shell .row-index {
+  width: 50px;
+  color: #70766f;
+  text-align: right;
 }
 .sidebar-collapsed {
   padding-left: 0;

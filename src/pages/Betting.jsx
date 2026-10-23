@@ -294,7 +294,7 @@ function Movement() {
       ) : (
         <>
           <Sidebar>
-            <h3>Line Movement</h3>
+            <h2>Line Movement</h2>
             <Select
               label="Fixture"
               value={m.id}

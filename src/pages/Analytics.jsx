@@ -36,8 +36,20 @@ import {
 import Footer from "../Footer.jsx";
 
 export default function Analytics({ page }) {
-  if (page === "/League_Overview") return <League />;
-  if (page === "/Team_Deep_Dive") return <Team />;
+  if (page === "/League_Overview")
+    return (
+      <>
+        <League />
+        <Footer />
+      </>
+    );
+  if (page === "/Team_Deep_Dive")
+    return (
+      <>
+        <Team />
+        <Footer />
+      </>
+    );
   if (page === "/Match_Analysis") return <Match />;
   return <Players compare={page === "/Player_Compare"} />;
 }
@@ -105,27 +117,27 @@ function League() {
   return (
     <>
       <Sidebar>
-        <h3>League Overview</h3>
+        <h2>League Overview</h2>
         {control}
       </Sidebar>
       <Title>📋 League Overview</Title>
       <h2>{leagueNames[league]}</h2>
       <Section title="🏅 Standings">
         <Table
-          rows={standings.map((s, i) => ({
-            "#": i + 1,
+          showIndex
+          rows={standings.map((s) => ({
             Team: tname(s.team_id),
-            P: s.played,
-            W: s.won,
-            L: s.lost,
-            D: s.drawn,
-            PF: s.points_for,
-            PA: s.points_against,
-            Diff: s.points_for - s.points_against,
-            TF: s.tries_for,
-            TA: s.tries_against,
-            BP: s.bonus_points,
-            Pts: s.league_points,
+            Played: s.played,
+            Won: s.won,
+            Lost: s.lost,
+            Drawn: s.drawn,
+            "Points For": s.points_for,
+            "Points Against": s.points_against,
+            "Points Difference": s.points_for - s.points_against,
+            "Tries For": s.tries_for,
+            "Tries Against": s.tries_against,
+            "Bonus Points": s.bonus_points,
+            "League Points": s.league_points,
             Form: s.won > s.lost ? "↑" : s.won < s.lost ? "↓" : "→",
           }))}
         />
@@ -150,6 +162,7 @@ function League() {
             shapes: [
               {
                 type: "line",
+                opacity: 0.5,
                 xref: "paper",
                 x0: 0,
                 x1: 1,
@@ -159,6 +172,22 @@ function League() {
                 ),
                 y1: mean(
                   standings.map((s) => ({ v: s.points_for / (s.played || 1) })),
+                  "v",
+                ),
+                line: { dash: "dot", color: "gray" },
+              },
+              {
+                type: "line",
+                opacity: 0.5,
+                yref: "paper",
+                y0: 0,
+                y1: 1,
+                x0: mean(
+                  standings.map((s) => ({ v: s.tries_for / (s.played || 1) })),
+                  "v",
+                ),
+                x1: mean(
+                  standings.map((s) => ({ v: s.tries_for / (s.played || 1) })),
                   "v",
                 ),
                 line: { dash: "dot", color: "gray" },
@@ -177,7 +206,7 @@ function League() {
                 "home_score",
               ),
             )}
-            title="Average Home Points"
+            title="Avg Points Scored at Home"
           />
           <Bars
             labels={teamIds.map(tname)}
@@ -187,7 +216,7 @@ function League() {
                 "away_score",
               ),
             )}
-            title="Average Away Points"
+            title="Avg Points Scored Away"
           />
         </div>
       </Section>
@@ -248,7 +277,9 @@ function League() {
 }
 function Team() {
   const { data, tname, leagueNames } = useApp();
-  const options = [...data.teams]
+  const options = [
+    ...new Map([...data.teams].reverse().map((t) => [t.name, t])).values(),
+  ]
     .sort((a, b) => a.name.localeCompare(b.name))
     .map((t) => ({ value: t.id, label: t.name }));
   const [id, setId] = useState(options[0]?.value ?? ""),
@@ -287,7 +318,7 @@ function Team() {
         {leagueNames[data.teams.find((t) => t.id === id)?.league_id]}
       </h2>
       <Section title="📊 Form Strip — Last 10 Results">
-        <div className="columns">
+        <div className="team-form-strip">
           {rs
             .slice(-10)
             .reverse()
@@ -298,13 +329,16 @@ function Team() {
                   {tname(
                     m.home_team_id === id ? m.away_team_id : m.home_team_id,
                   )}{" "}
-                  · {m.home_score}–{m.away_score}
+                  {m.home_team_id === id
+                    ? `${m.home_score}–${m.away_score}`
+                    : `${m.away_score}–${m.home_score}`}
                 </small>
               </div>
             ))}
         </div>
         {!rs.length && <Info>No completed matches for this team.</Info>}
       </Section>
+      <hr />
       <div className="columns">
         <Section title="⚡ Attack vs Defence Radar">
           <Radar
@@ -428,14 +462,25 @@ function Players({ compare }) {
   );
   const players = useMemo(() => aggregatePlayers(rows), [rows]);
   const key = (p) => `${p.player_id}|${p.team_id}|${p.position}`;
-  const options = [...players]
+  const selectable = [
+    ...new Map(
+      [...players]
+        .sort((x, y) => String(y.player_id).localeCompare(String(x.player_id)))
+        .map((p) => [p.player_name, p]),
+    ).values(),
+  ];
+  const options = selectable
     .sort((x, y) => x.player_name.localeCompare(y.player_name))
     .map((p) => ({
       value: key(p),
-      label: `${p.player_name} · ${tname(p.team_id)}`,
+      label: p.player_name,
     }));
-  const pa = players.find((p) => key(p) === a) ?? players[0],
-    pb = players.find((p) => key(p) === b) ?? players[1];
+  const pa =
+      players.find((p) => key(p) === a) ??
+      players.find((p) => key(p) === options[0]?.value),
+    pb =
+      players.find((p) => key(p) === b) ??
+      players.find((p) => key(p) === options[1]?.value);
   const prop = players.find((p) => key(p) === propId) ?? pa;
   const historical = historicalTryProbability(prop?.rows ?? []);
   const stats = [
@@ -447,15 +492,24 @@ function Players({ compare }) {
     "linebreaks",
     "assists",
   ];
-  const labels = {
-    tries: "Tries",
-    carries: "Carries",
-    metres_run: "Metres",
-    tackles: "Tackles",
-    missed_tackles: "Missed Tackles",
-    linebreaks: "Linebreaks",
-    assists: "Assists",
+  const perGameLabels = {
+    tries: "Tries/Game",
+    carries: "Carries/Game",
+    metres_run: "Metres/Game (÷10)",
+    linebreaks: "Linebreaks/Game",
+    tackles: "Tackles/Game",
+    missed_tackles: "Miss Tackles/Game",
+    assists: "Assists/Game",
   };
+  const perGame = (p, s) =>
+    Number((p[s] / (p.games || 1) / (s === "metres_run" ? 10 : 1)).toFixed(2));
+  const matchRounds = new Map(data.matches.map((m) => [m.id, m.round ?? 0]));
+  const triesByRound = new Map();
+  for (const row of pa?.rows ?? []) {
+    const round = matchRounds.get(row.match_id) ?? 0;
+    triesByRound.set(round, (triesByRound.get(round) ?? 0) + row.tries);
+  }
+  const rounds = [...triesByRound.keys()].sort((a, b) => a - b);
   const selectA = (
     <Select
       label={compare ? "🔵 Player A" : "Select Player"}
@@ -492,11 +546,7 @@ function Players({ compare }) {
       ) : compare ? (
         <>
           <div className="columns">
-            <div>
-              {selectA}
-              <h3>🔵 {pa.player_name}</h3>
-              <PlayerMetrics p={pa} tname={tname} />
-            </div>
+            {selectA}
             <div>
               <Select
                 label="🔴 Player B"
@@ -504,40 +554,62 @@ function Players({ compare }) {
                 onChange={setB}
                 options={options}
               />
-              <h3>🔴 {pb.player_name}</h3>
-              <PlayerMetrics p={pb} tname={tname} />
             </div>
           </div>
+          <hr />
+          <div className="columns">
+            {[pa, pb].map((p, i) => (
+              <div key={i}>
+                <h3>
+                  {i ? "🔴" : "🔵"} {p.player_name}
+                </h3>
+                <p className="caption">
+                  {tname(p.team_id)} · {p.position}
+                </p>
+                <Metric label="Games" value={p.games} />
+                <Metric label="Tries" value={p.tries} />
+                <Metric label="Metres" value={p.metres_run} />
+                <Metric label="Tackles" value={p.tackles} />
+              </div>
+            ))}
+          </div>
+          <hr />
           <Section title="⚡ Radar Comparison (per-game averages)">
             <Radar
-              labels={stats.map((s) => labels[s])}
+              labels={stats.map((s) => perGameLabels[s])}
               series={[pa, pb].map((p) => ({
                 name: p.player_name,
-                values: stats.map((s) => p[s] / p.games),
+                values: stats.map((s) => perGame(p, s)),
               }))}
             />
           </Section>
+          <hr />
           <Section title="📊 Season Totals — Side by Side">
             <Select
-              label="Statistic"
+              label="Choose stat"
               value={stat}
               onChange={setStat}
-              options={stats.map((s) => ({ value: s, label: labels[s] }))}
+              options={stats.map((s) => ({
+                value: s,
+                label: perGameLabels[s],
+              }))}
             />
             <Bars
               labels={[pa.player_name, pb.player_name]}
               values={[pa[stat], pb[stat]]}
-              title={labels[stat]}
+              title={`Season ${perGameLabels[stat]}`}
             />
           </Section>
           <Section title="📋 Full Stats Table">
             <Table
               rows={stats.map((s) => ({
-                Stat: labels[s],
-                [pa.player_name]: pa[s],
-                [pb.player_name === pa.player_name
-                  ? `${pb.player_name} (B)`
-                  : pb.player_name]: pb[s],
+                Stat: perGameLabels[s],
+                [`${pa.player_name} (total)`]: pa[s],
+                [`${pa.player_name} (per game)`]: perGame(pa, s),
+                [`${pb.player_name === pa.player_name ? `${pb.player_name} (B)` : pb.player_name} (total)`]:
+                  pb[s],
+                [`${pb.player_name === pa.player_name ? `${pb.player_name} (B)` : pb.player_name} (per game)`]:
+                  perGame(pb, s),
               }))}
             />
           </Section>
@@ -547,10 +619,11 @@ function Players({ compare }) {
         <>
           <Section title="🏆 Try Scorer Rankings">
             <Table
+              showIndex
               rows={players.map((p) => ({
                 Player: p.player_name,
                 Team: tname(p.team_id),
-                Position: p.position,
+                Pos: p.position,
                 Tries: p.tries,
                 Games: p.games,
                 "T/Game": p.tpg,
@@ -558,31 +631,40 @@ function Players({ compare }) {
               }))}
             />
           </Section>
+          <hr />
           <Section title="👤 Player Profile">
             {selectA}
             <PlayerMetrics p={pa} tname={tname} />
             <div className="columns">
+              <div>
+                <p>
+                  <b>Consistency Score:</b> {pct(pa.consistency)} of games with
+                  ≥1 try
+                </p>
+                <p>
+                  <b>Avg Minutes Played:</b> {Math.round(pa.avg_minutes)}
+                </p>
+                <Bars
+                  labels={rounds}
+                  values={rounds.map((round) => triesByRound.get(round))}
+                  title={`${pa.player_name} — Tries by Round`}
+                />
+              </div>
               <Bars
-                labels={pa.rows.map(
-                  (p) => p.kickoff_utc?.slice(0, 10) || p.match_id,
-                )}
-                values={pa.rows.map((p) => p.tries)}
-                title="Tries by Match"
-              />
-              <Chart
-                data={[
-                  {
-                    type: "scatter",
-                    mode: "lines+markers",
-                    x: pa.rows.map((p) => p.kickoff_utc ?? p.match_id),
-                    y: pa.rows.map((p) => p.minutes_played),
-                  },
-                ]}
-                layout={{ title: "Minutes Played Trend" }}
+                labels={pa.rows.map((_, i) => i + 1)}
+                values={[...pa.rows]
+                  .sort((a, b) => a.match_id.localeCompare(b.match_id))
+                  .map((p) => p.minutes_played)}
+                title={`${pa.player_name} — Minutes Played`}
               />
             </div>
           </Section>
+          <hr />
           <Section title="💰 Prop Bet Analyzer">
+            <p className="caption">
+              Enter a DraftKings try scorer line and compare against model
+              probability.
+            </p>
             <div className="columns">
               <div>
                 <Select
@@ -639,15 +721,11 @@ function Players({ compare }) {
 function PlayerMetrics({ p, tname }) {
   return (
     <>
-      <p>
-        {tname(p.team_id)} · {p.position}
-      </p>
-      <div className="columns three">
-        <Metric label="Season Tries" value={p.tries} />
-        <Metric label="T/Game" value={fmt(p.tpg)} />
-        <Metric label="Games" value={p.games} />
-        <Metric label="Consistency" value={pct(p.consistency)} />
-        <Metric label="Avg Minutes" value={fmt(p.avg_minutes)} />
+      <div className="columns four">
+        <Metric label="Team" value={tname(p.team_id)} />
+        <Metric label="Position" value={p.position} />
+        <Metric label="Tries This Season" value={p.tries} />
+        <Metric label="Tries per Game" value={fmt(p.tpg)} />
       </div>
     </>
   );

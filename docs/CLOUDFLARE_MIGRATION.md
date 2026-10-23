@@ -40,8 +40,8 @@ fits by a hash of their inputs. Only explicitly selected public data is written
 to `public/`; `.env` and credentials are never bundled.
 
 Nightly Data Refresh runs at 03:00 UTC, exports the React snapshot, commits the
-data, and calls the Cloudflare deployment workflow. Refresh cache in the app
-reloads the latest deployed snapshot; it does not start a new scrape.
+data, and calls the Cloudflare deployment workflow. Reloading the page fetches
+the latest deployed snapshot; it does not start a new scrape.
 
 ## Deploy
 

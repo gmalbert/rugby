@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { fmt } from "./analytics.js";
 
@@ -48,37 +55,89 @@ export function Select({ label, value, onChange, options }) {
     </label>
   );
 }
-export function MultiSelect({ label, value, onChange, options }) {
+export function MultiSelect({
+  label,
+  value,
+  onChange,
+  options,
+  compact = false,
+}) {
   const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const id = useId();
+  useEffect(() => {
+    if (!open) return;
+    const close = (event) => {
+      if (!ref.current?.contains(event.target)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, [open]);
+  const summary =
+    value.length === options.length
+      ? `All Leagues (${options.length})`
+      : value.length === 0
+        ? "No League Filter"
+        : value.length === 1
+          ? options.find((o) => o.value === value[0])?.label
+          : `${value.length} Leagues Selected`;
   return (
-    <div className="field multi">
-      <span>{label}</span>
-      <div className="multi-box">
-        <div className="chips">
-          {value.map((v) => (
-            <button
-              type="button"
-              key={v}
-              onClick={() => onChange(value.filter((x) => x !== v))}
-              aria-label={`Remove ${options.find((o) => o.value === v)?.label ?? v}`}
-            >
-              {options.find((o) => o.value === v)?.label ?? v}
-              <span aria-hidden="true">×</span>
-            </button>
-          ))}
-        </div>
+    <div
+      className="field multi"
+      ref={ref}
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          setOpen(false);
+          ref.current?.querySelector(".multi-summary, .multi-toggle")?.focus();
+        }
+      }}
+    >
+      <span id={`${id}-label`}>{label}</span>
+      {compact ? (
         <button
           type="button"
-          className="multi-toggle"
-          onClick={() => setOpen(!open)}
-          aria-label={`Choose ${label}`}
+          className="multi-box multi-summary"
+          aria-label={`${label}: ${summary}`}
           aria-expanded={open}
+          aria-controls={`${id}-options`}
+          onClick={() => setOpen(!open)}
         >
-          ⌄
+          <span>{summary}</span>
+          <span aria-hidden="true">{open ? "⌃" : "⌄"}</span>
         </button>
-      </div>
+      ) : (
+        <div className="multi-box">
+          <div className="chips">
+            {value.map((v) => (
+              <button
+                type="button"
+                key={v}
+                onClick={() => onChange(value.filter((x) => x !== v))}
+                aria-label={`Remove ${options.find((o) => o.value === v)?.label ?? v}`}
+              >
+                {options.find((o) => o.value === v)?.label ?? v}
+                <span aria-hidden="true">×</span>
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            className="multi-toggle"
+            onClick={() => setOpen(!open)}
+            aria-label={`Choose ${label}`}
+            aria-expanded={open}
+          >
+            ⌄
+          </button>
+        </div>
+      )}
       {open && (
-        <div className="multi-options">
+        <div
+          className="multi-options"
+          id={`${id}-options`}
+          role="group"
+          aria-labelledby={`${id}-label`}
+        >
           <button
             onClick={() =>
               onChange(
@@ -176,6 +235,7 @@ export function Table({
   maxHeight = 400,
   download = true,
   plain = false,
+  showIndex = false,
 }) {
   const [sort, setSort] = useState(null);
   const cols =
@@ -227,6 +287,7 @@ export function Table({
         <table>
           <thead>
             <tr>
+              {showIndex && <th className="row-index" aria-label="Row" />}
               {cols.map((c) => (
                 <th
                   key={c.key}
@@ -260,8 +321,16 @@ export function Table({
           <tbody>
             {sorted.map((r, i) => (
               <tr key={r._key ?? i} className={r._signal ?? ""}>
+                {showIndex && (
+                  <td className="row-index">{rows.indexOf(r) + 1}</td>
+                )}
                 {cols.map((c) => (
-                  <td key={c.key}>
+                  <td
+                    key={c.key}
+                    className={
+                      typeof r[c.key] === "number" ? "numeric" : undefined
+                    }
+                  >
                     {c.render
                       ? c.render(r[c.key], r)
                       : typeof r[c.key] === "number"
@@ -302,12 +371,19 @@ export function Chart({ data, layout = {}, height = 360 }) {
           {
             height,
             autosize: true,
-            margin: { l: 45, r: 20, t: 40, b: 55 },
+            margin: { l: 0, r: 0, t: 40, b: 0 },
             paper_bgcolor: theme.main_bg,
             plot_bgcolor: theme.main_bg,
-            font: { color: theme.text, family: "Source Sans 3, sans-serif" },
+            font: {
+              color: theme.text,
+              family: "Source Sans 3, sans-serif",
+              size: 14,
+            },
             colorway: ["#5a9e10", "#7c3aed", "#22c55e", "#ef4444", "#f59e0b"],
             ...layout,
+            ...(typeof layout.title === "string"
+              ? { title: { text: layout.title, font: { size: 16 }, x: 0 } }
+              : {}),
             xaxis: { ...axis, ...layout.xaxis },
             yaxis: { ...axis, ...layout.yaxis },
           },
@@ -322,7 +398,17 @@ export function Chart({ data, layout = {}, height = 360 }) {
         if (!cancelled) setError("Unable to load chart. Please refresh.");
       });
     const observer = new ResizeObserver(() => {
-      if (plotly && element?.data) plotly.Plots.resize(element);
+      if (
+        !cancelled &&
+        plotly &&
+        element?.data &&
+        element.isConnected &&
+        element.clientWidth &&
+        element.clientHeight
+      )
+        plotly.Plots.resize(element).catch(() => {
+          /* Navigation can detach the chart while Plotly's resize is pending. */
+        });
     });
     if (element) observer.observe(element);
     return () => {
@@ -349,6 +435,7 @@ export function Chart({ data, layout = {}, height = 360 }) {
 export function Bars({ labels, values, title, horizontal = false }) {
   return (
     <Chart
+      height={320}
       data={[
         {
           type: "bar",
@@ -365,20 +452,23 @@ export function Bars({ labels, values, title, horizontal = false }) {
 export function Probability({ prediction, home, away }) {
   return (
     <Chart
-      height={250}
+      height={260}
       data={[
         {
           type: "bar",
           x: [home, "Draw", away],
           y: [prediction.home, prediction.draw, prediction.away],
-          marker: { color: ["#22c55e", "#f59e0b", "#ef4444"] },
+          marker: { color: ["#5a9e10", "#6b7280", "#7c3aed"] },
           text: [prediction.home, prediction.draw, prediction.away].map(
             (p) => `${(p * 100).toFixed(1)}%`,
           ),
           textposition: "auto",
         },
       ]}
-      layout={{ yaxis: { tickformat: ".0%" } }}
+      layout={{
+        margin: { l: 0, r: 0, t: 20, b: 0 },
+        yaxis: { tickformat: ".0%", title: { text: "Probability (%)" } },
+      }}
     />
   );
 }
@@ -416,17 +506,17 @@ export function Radar({ labels, series }) {
 export function Heatmap({ matrix }) {
   return (
     <Chart
-      height={450}
+      height={420}
       data={[
         {
           type: "heatmap",
           z: matrix.slice(0, 41).map((r) => r.slice(0, 41)),
-          colorscale: "Greens",
+          colorscale: "Blues",
           hovertemplate: "Home %{y} – Away %{x}<br>%{z:.3%}<extra></extra>",
         },
       ]}
       layout={{
-        title: "Scoreline Probability",
+        margin: { l: 60, r: 20, t: 20, b: 60 },
         xaxis: { title: { text: "Away Score" } },
         yaxis: { title: { text: "Home Score" } },
       }}

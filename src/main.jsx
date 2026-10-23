@@ -205,12 +205,6 @@ function App() {
           <hr className="nav-divider" />
           <img className="brand" src="/logo.png" alt="ScrumBet" />
           <hr />
-          <button className="primary" onClick={load} disabled={refreshing}>
-            {refreshing ? "Refreshing…" : "🔄 Refresh cache"}
-          </button>
-          <p className="caption sources">
-            Data: ESPN API · RugbyPass · SofaScore · The Odds API
-          </p>
           {data &&
             [
               "/",
@@ -220,6 +214,7 @@ function App() {
               "/Line_Movement",
             ].includes(path) && (
               <MultiSelect
+                compact
                 label={path === "/" ? "Filter Leagues" : "Filter by League"}
                 value={selectedLeagues}
                 onChange={setLeagues}
