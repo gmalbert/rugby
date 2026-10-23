@@ -1,10 +1,10 @@
 {
   "meta": {
     "sport": "Rugby",
-    "generated_at": "2026-10-22T08:20:05.111017+00:00",
+    "generated_at": "2026-10-23T08:15:47.551734+00:00",
     "model_version": "1.0.0",
     "season": "2026",
-    "notes": "No scheduled rugby matches for 2026-10-22"
+    "notes": "No Rugby value edges for 2026-10-23"
   },
   "bets": []
 }
