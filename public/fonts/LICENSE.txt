@@ -1,0 +1,7 @@
+Source Sans is licensed under the SIL Open Font License, Version 1.1.
+Copyright 2010, 2012, 2014, 2018, 2020 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is available with a FAQ at: https://openfontlicense.org/
+
+The full license text is included in OFL.txt in this directory.

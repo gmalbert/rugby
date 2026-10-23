@@ -1,6 +1,33 @@
 # ScrumBet 🏉
 
-European rugby analytics and DraftKings betting intelligence, built with Streamlit.
+European rugby analytics and DraftKings betting intelligence, built with React
+and deployed on Cloudflare Workers. Python runs the existing data pipeline and
+predictive models; the original Streamlit app is retained for reference.
+
+## Run the React site
+
+```sh
+npm ci
+npm run dev
+```
+
+## Build, test, and deploy
+
+```sh
+npm test
+npm run build
+npm run deploy
+```
+
+The committed `public/data/snapshot.json` lets Cloudflare build with Node alone.
+To refresh it after running the Python pipeline, use `npm run data:export`.
+For the local Worker APIs, run `npx wrangler dev` after building.
+
+See [Cloudflare migration and domain cutover](docs/CLOUDFLARE_MIGRATION.md) for
+GitHub Actions secrets, live odds setup, data refresh, and Railway retirement.
+
+The sections below document the original Streamlit features used as the
+reference for the React migration.
 
 ## Overview
 

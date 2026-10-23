@@ -47,3 +47,9 @@ logs/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# React / Cloudflare
+node_modules/
+.wrangler/
+.dev.vars
+.dev.vars.*
