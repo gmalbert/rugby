@@ -6,6 +6,7 @@
   "workers_dev": true,
   "routes": [
     { "pattern": "scrumbet.com", "custom_domain": true },
+    { "pattern": "scrum-bet.com", "custom_domain": true },
     { "pattern": "scrum-bets.com", "custom_domain": true },
     { "pattern": "scrumbets.com", "custom_domain": true },
   ],

@@ -10,13 +10,12 @@ Initial deployment: https://scrumbet.gmalbert.workers.dev (22 October 2026).
 Custom domains connected on 23 October 2026:
 
 - https://scrumbet.com
+- https://scrum-bet.com
 - https://scrum-bets.com
 - https://scrumbets.com
 
 These hostnames are declared in `wrangler.jsonc`; the `workers.dev` address
 remains enabled. Cloudflare manages their DNS and HTTPS certificates.
-`scrum-bet.com` is pending removal of its conflicting apex DNS record and is
-excluded from deployment routes until it can be attached successfully.
 
 ## Local development
 
