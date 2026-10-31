@@ -200,6 +200,7 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 604408,urc,urc-25986,urc-270567,2026-10-24T19:00Z,41,20,0,0,final,Stade Mayol,0,604408.0,WWWLW,LWWWW
 604633,premiership,premiership-25901,premiership-25909,2026-10-25T15:00Z,33,15,0,0,final,Twickenham Stoop,0,604633.0,WWLLL,LLWLW
 604406,urc,urc-119318,urc-143737,2026-10-25T20:05Z,19,25,0,0,final,Stade Marcel-Deflandre,0,604406.0,LWWWL,WTWWL
+604414,urc,urc-25918,urc-25916,2026-10-31T15:35Z,0,0,0,0,scheduled,Septeo Stadium,0,604414.0,WWLWL,WWLLL
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514.0,LWWWW,WLWLW
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515.0,LLWWL,LLLLW
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516.0,WWLWL,WWLLL
@@ -212,7 +213,6 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 604412,urc,urc-25917,urc-99855,2026-10-31T13:30Z,0,0,0,0,scheduled,Stade Marcel Michelin,0,604412.0,LLLLW,LLLWL
 604411,urc,urc-143737,urc-25912,2026-10-31T15:35Z,0,0,0,0,scheduled,Stade Chaban-Delmas,0,604411.0,WTWWL,LWLWW
 604413,urc,urc-143736,urc-289337,2026-10-31T15:35Z,0,0,0,0,scheduled,Matmut Stadium de Gerland,0,604413.0,WLLLL,WLLLL
-604414,urc,urc-25918,urc-25916,2026-10-31T15:35Z,0,0,0,0,scheduled,Septeo Stadium,0,604414.0,WWLWL,WWLLL
 604415,urc,urc-25921,urc-119318,2026-10-31T15:35Z,0,0,0,0,scheduled,Stade Jean Bouin,0,604415.0,LLWLW,LWWWL
 604410,urc,urc-25920,urc-25986,2026-10-31T20:00Z,0,0,0,0,scheduled,Stade Aime Giral,0,604410.0,LLWLW,WWWLW
 604258,champions_cup,champions_cup-25952,champions_cup-270567,2026-12-11T20:00Z,0,0,0,0,scheduled,Scotstoun Stadium,0,604258.0,WWWTW,LWWWW
@@ -220,9 +220,9 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,LWWWW,WLWLW
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,LLWWL,LLLLW
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,WWLWL,WWLLL
-604634,premiership,premiership-25899,premiership-25903,2026-10-30T19:45Z,0,0,0,0,scheduled,Ashton Gate,0,604634,WLLWW,WLWWL
-604064,top14,top14-25923,top14-25924,2026-10-30T19:45Z,0,0,0,0,scheduled,Dexcom Stadium,0,604064,WWLWL,WWWLL
-604065,top14,top14-25952,top14-25958,2026-10-30T19:45Z,0,0,0,0,scheduled,Scotstoun Stadium,0,604065,WWWTW,LLLWW
+604634,premiership,premiership-25899,premiership-25903,2026-10-30T19:45Z,16,22,0,0,final,Ashton Gate,0,604634,LWLLW,WWLWW
+604064,top14,top14-25923,top14-25924,2026-10-30T19:45Z,5,50,0,0,final,Dexcom Stadium,0,604064,LWWLW,WWWWL
+604065,top14,top14-25952,top14-25958,2026-10-30T19:45Z,29,20,0,0,final,Scotstoun Stadium,0,604065,WWWWT,LLLLW
 604758,super_rugby,super_rugby-25936,super_rugby-182,2027-02-12T06:35Z,0,0,0,0,scheduled,One NZ Stadium,0,604758,LWWWW,LWWLL
 604759,super_rugby,super_rugby-25889,super_rugby-227,2027-02-12T08:45Z,0,0,0,0,scheduled,GIO Stadium,0,604759,LLWWL,LLWLL
 604760,super_rugby,super_rugby-289338,super_rugby-25938,2027-02-13T03:35Z,0,0,0,0,scheduled,Four R Stadium,0,604760,LLLWL,LLWLW
@@ -231,5 +231,5 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 604413,urc,urc-143736,urc-289337,2026-10-31T15:35Z,0,0,0,0,scheduled,Matmut Stadium de Gerland,0,604413,WLLLL,WLLLL
 604415,urc,urc-25921,urc-119318,2026-10-31T15:35Z,0,0,0,0,scheduled,Stade Jean Bouin,0,604415,LLWLW,LWWWL
 604410,urc,urc-25920,urc-25986,2026-10-31T20:00Z,0,0,0,0,scheduled,Stade Aime Giral,0,604410,LLWLW,WWWLW
-604258,champions_cup,champions_cup-25952,champions_cup-270567,2026-12-11T20:00Z,0,0,0,0,scheduled,Scotstoun Stadium,0,604258,WWWTW,LWWWW
+604258,champions_cup,champions_cup-25952,champions_cup-270567,2026-12-11T20:00Z,0,0,0,0,scheduled,Scotstoun Stadium,0,604258,WWWWT,LWWWW
 604259,champions_cup,champions_cup-25921,champions_cup-25907,2026-12-11T20:00Z,0,0,0,0,scheduled,Stade Jean Bouin,0,604259,LLWLW,LWWLW
