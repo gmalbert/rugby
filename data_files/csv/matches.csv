@@ -228,10 +228,10 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 604422,urc,urc-25986,urc-25921,2026-11-07T15:35Z,43,23,0,0,final,Stade Mayol,0,604422.0,WWWWW,LWLLW
 604417,urc,urc-289337,urc-143737,2026-11-08T14:00Z,23,14,0,0,final,Stade de la Beaujoire,0,604417.0,WLWLL,LWWTW
 604419,urc,urc-119318,urc-25912,2026-11-08T20:05Z,22,18,0,0,final,Stade Marcel-Deflandre,0,604419.0,WLLWW,LLLWL
-602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514.0,WWLWW,LWLWL
+602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514.0,WWLWW,WLWLW
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515.0,WWLLW,LLLLL
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516.0,WWWWL,WWWWL
-604639,premiership,premiership-25898,premiership-25899,2026-12-04T19:45Z,0,0,0,0,scheduled,Recreation Ground,0,604639.0,TWWLL,LLWLL
+604639,premiership,premiership-25898,premiership-25899,2026-12-04T19:45Z,0,0,0,0,scheduled,Recreation Ground,0,604639.0,LWWLL,LLWLL
 604072,top14,top14-25968,top14-25924,2026-12-04T19:45Z,0,0,0,0,scheduled,St Helen's Rugby and Cricket Ground,0,604072.0,LWWWL,WWWWL
 604073,top14,top14-25951,top14-25967,2026-12-04T19:45Z,0,0,0,0,scheduled,Hive Stadium,0,604073.0,LWLWW,WLWLW
 604758,super_rugby,super_rugby-25936,super_rugby-182,2027-02-12T06:35Z,0,0,0,0,scheduled,One NZ Stadium,0,604758.0,LWWWW,LWWLL
