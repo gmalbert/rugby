@@ -248,7 +248,7 @@ id,league_id,home_team_id,away_team_id,kickoff_utc,home_score,away_score,home_tr
 602514,six_nations,six_nations-3,six_nations-2,2026-03-14T14:10Z,43,21,0,0,final,Aviva Stadium,0,602514,WWLWW,WLWLW
 602515,six_nations,six_nations-4,six_nations-20,2026-03-14T16:40Z,31,17,0,0,final,Principality Stadium,0,602515,WWLLW,LLLLL
 602516,six_nations,six_nations-9,six_nations-1,2026-03-14T20:10Z,48,46,0,0,final,Stade de France,0,602516,WWWWL,WWWWL
-604639,premiership,premiership-25898,premiership-25899,2026-12-04T19:45Z,0,0,0,0,scheduled,Recreation Ground,0,604639,LWWLL,LLWLL
+604639,premiership,premiership-25898,premiership-25899,2026-12-04T19:45Z,0,0,0,0,scheduled,Recreation Ground,0,604639,WLWWL,LLLWL
 604072,top14,top14-25968,top14-25924,2026-12-04T19:45Z,0,0,0,0,scheduled,St Helen's Rugby and Cricket Ground,0,604072,LWWWL,WWWWL
 604073,top14,top14-25951,top14-25967,2026-12-04T19:45Z,0,0,0,0,scheduled,Hive Stadium,0,604073,LWLWW,WLWLW
 604758,super_rugby,super_rugby-25936,super_rugby-182,2027-02-12T06:35Z,0,0,0,0,scheduled,One NZ Stadium,0,604758,LWWWW,LWWLL
